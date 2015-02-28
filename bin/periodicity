@@ -1,2 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'rails'
+require File.expand_path("config/environment.rb")
+::Rails.application.eager_load!
+
+logger.info "Running in #{RUBY_DESCRIPTION}"

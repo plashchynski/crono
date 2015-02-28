@@ -1,2 +1,4 @@
-# periodicity
-Job scheduler for Rails
+Periodicity — Job scheduler for Rails
+—————————————————————————————
+
+Under Construction
