@@ -3,6 +3,7 @@ PATH
   specs:
     periodicity (0.0.1)
       activejob
+      activesupport
 
 GEM
   remote: https://rubygems.org/
@@ -37,6 +38,7 @@ GEM
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
     thread_safe (0.3.4)
+    timecop (0.7.3)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
 
@@ -48,3 +50,4 @@ DEPENDENCIES
   periodicity!
   rake
   rspec (~> 3.0)
+  timecop

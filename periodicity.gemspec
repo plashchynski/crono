@@ -13,9 +13,11 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "periodicity"
 
   s.add_runtime_dependency      "activejob"
+  s.add_runtime_dependency      "activesupport"
   s.add_development_dependency  "rake"
   s.add_development_dependency  "bundler", ">= 1.0.0"
   s.add_development_dependency  "rspec", "~> 3.0"
+  s.add_development_dependency  "timecop"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
