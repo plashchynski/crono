@@ -1,7 +1,7 @@
 module Periodicity
   def self.hook_rails!
     ActiveSupport.on_load(:active_job) do
-      extend Sidekiq::Extensions::ActiveJob
+      extend Periodicity::Extensions::ActiveJob
     end
   end
 
@@ -9,5 +9,5 @@ module Periodicity
     initializer 'periodicity' do
       Periodicity.hook_rails!
     end
-  end if defined?(::Rails)
+  end
 end
