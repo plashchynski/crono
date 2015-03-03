@@ -1,7 +1,7 @@
 module Crono
   class Config
     CRONOTAB  = "config/cronotab.rb"
-    LOGFILE   = "log/crono.rb"
+    LOGFILE   = "log/crono.log"
 
     attr_accessor :cronotab
     attr_accessor :logfile

@@ -10,25 +10,29 @@ module Crono
     attr_accessor :schedule
     attr_accessor :logger
 
-    def run
+    def initialize
       self.config = Config.new
       self.schedule = Schedule.new
       Crono.schedule = schedule
+    end
 
+    def run
       parse_options(ARGV)
-
-      logfile = config.daemonize ? config.logfile : STDOUT
-      self.logger = Logger.new(logfile)
-      
+      init_logger
       load_rails
       print_banner
       start_working_loop
     end
 
   private
+    def init_logger
+      logfile = config.daemonize ? config.logfile : STDOUT
+      self.logger = Logger.new(logfile)
+    end
+
     def print_banner
-      puts "Loading Crono #{Crono::VERSION}"
-      puts "Running in #{RUBY_DESCRIPTION}"
+      logger.info "Loading Crono #{Crono::VERSION}"
+      logger.info "Running in #{RUBY_DESCRIPTION}"
     end
 
     def load_rails
@@ -39,7 +43,7 @@ module Crono
     end
 
     def run_job(klass)
-      puts "Perform #{klass}"
+      logger.info "Perform #{klass}"
       Thread.new { klass.new.perform }
     end
 
