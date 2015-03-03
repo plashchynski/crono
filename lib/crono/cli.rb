@@ -6,7 +6,6 @@ module Crono
 
     def run
       load_rails
-      require File.expand_path("config/cronotab.rb")
       print_banner
       start_working_loop
     end
@@ -21,9 +20,11 @@ module Crono
       require 'rails'
       require File.expand_path("config/environment.rb")
       ::Rails.application.eager_load!
+      require File.expand_path("config/cronotab.rb")
     end
 
     def run_job(klass)
+      puts "Perform #{klass}"
       Thread.new { klass.new.perform }
     end
 
