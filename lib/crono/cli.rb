@@ -1,10 +1,12 @@
 require 'crono'
+require 'optparse'
 
 module Crono
   class CLI
     include Singleton
 
     def run
+      parse_options(ARGV)
       load_rails
       print_banner
       start_working_loop
@@ -20,7 +22,7 @@ module Crono
       require 'rails'
       require File.expand_path("config/environment.rb")
       ::Rails.application.eager_load!
-      require File.expand_path("config/cronotab.rb")
+      require File.expand_path(Crono.config.cronotab)
     end
 
     def run_job(klass)
@@ -30,10 +32,20 @@ module Crono
 
     def start_working_loop
       loop do
-        klass, time = Config.instance.schedule.next
+        klass, time = config.schedule.next
         sleep(time - Time.now)
         run_job(klass)
       end
+    end
+
+    def parse_options(argv)
+      OptionParser.new do |opts|
+        opts.banner = "Usage: crono [options]"
+
+        opts.on("-c", "--cronotab cronotab.rb", "Cronotab file (Default: #{Crono.config.cronotab})") do |cronotab|
+          Crono.config.cronotab = cronotab
+        end
+      end.parse!(argv)
     end
   end
 end
