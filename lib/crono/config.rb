@@ -8,4 +8,8 @@ module Crono
       self.schedule = Schedule.new
     end
   end
+
+  def self.config
+    Config.instance
+  end
 end

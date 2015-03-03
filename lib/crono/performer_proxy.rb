@@ -5,7 +5,7 @@ module Crono
     end
 
     def every(period, *args)
-      Config.instance.schedule.add(@performer, Period.new(period, *args))
+      Crono.config.schedule.add(@performer, Period.new(period, *args))
     end
   end
 
