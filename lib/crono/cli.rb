@@ -6,6 +6,7 @@ module Crono
 
     def run
       load_rails
+      require File.expand_path("config/cronotab.rb")
       print_banner
       start_working_loop
     end
@@ -27,7 +28,9 @@ module Crono
     end
 
     def start_working_loop
-      Config.instance.schedule.each do |klass, period|
+      loop do
+        klass, time = Config.instance.schedule.next
+        sleep(time - Time.now)
         run_job(klass)
       end
     end

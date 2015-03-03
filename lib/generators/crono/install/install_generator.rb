@@ -5,7 +5,7 @@ module Crono
       source_root File.expand_path("../templates", __FILE__)
 
       def copy_config
-        template 'crono.rb.erb', 'config/initializers/crono.rb'
+        template 'cronotab.rb.erb', 'config/cronotab.rb'
       end
     end
   end
