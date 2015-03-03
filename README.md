@@ -11,7 +11,7 @@ Crono is a time-based background job scheduler daemon (just like Cron) for Ruby 
 
 ## Requirements
 
-Tested with latest MRI Ruby (2.2, 2.1 and 2.0) and Rails 3.2+
+Tested with latest MRI Ruby (2.2, 2.1 and 2.0) and Rails 3.2+  
 Other versions are untested but might work fine.
 
 
@@ -21,12 +21,12 @@ Add the following line to your application's Gemfile:
 
     gem 'crono'
 
-Run the bundle command to install it.
+Run the bundle command to install it.  
 After you install Crono, you can run the generator:
 
     rails generate crono:install
 
-It will create a configuration file `config/cronotab.rb`
+It will create a configuration file `config/cronotab.rb`  
 Now you are ready to move forward to create a job and schedule it.
 
 
@@ -58,7 +58,7 @@ The Active Job jobs is convenient because you can use one class in both periodic
 
 #### Schedule Jobs
 
-The schedule described in the configuration file `config/cronotab.rb`, that we created using `rails generate crono:install` or manually. The semantic is pretty straightforward:
+The schedule described in the configuration file `config/cronotab.rb`, that we created using `crono:install` or manually. The semantic is pretty straightforward:
 
     Crono.perform(TestJob).every 2.days, at: "15:30"
 
