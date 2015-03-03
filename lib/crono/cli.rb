@@ -19,12 +19,29 @@ module Crono
     def run
       parse_options(ARGV)
       init_logger
+      daemonize if config.daemonize
+      write_pid
       load_rails
       print_banner
       start_working_loop
     end
 
   private
+    def daemonize
+      ::Process.daemon(true, true)
+
+      [$stdout, $stderr].each do |io|
+        File.open(config.logfile, 'ab') { |f| io.reopen(f) }
+        io.sync = true
+      end
+      $stdin.reopen("/dev/null")
+    end
+
+    def write_pid
+      pidfile = File.expand_path(config.pidfile)
+      File.write(pidfile, ::Process.pid)
+    end
+
     def init_logger
       logfile = config.daemonize ? config.logfile : STDOUT
       self.logger = Logger.new(logfile)
@@ -65,6 +82,10 @@ module Crono
 
         opts.on("-L", "--logfile PATH", "Path to writable logfile (Default: #{config.logfile})") do |logfile|
           config.logfile = logfile
+        end
+
+        opts.on("-P", "--pidfile PATH", "Path to pidfile (Default: #{config.pidfile})") do |pidfile|
+          config.pidfile = pidfile
         end
 
         opts.on("-d", "--[no-]daemonize", "Daemonize process (Default: #{config.daemonize})") do |daemonize|
