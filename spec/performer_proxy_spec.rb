@@ -1,7 +1,6 @@
 require "spec_helper"
-require "active_job"
 
-class TestJob < ActiveJob::Base
+class TestJob
   def perform;end
 end
 
