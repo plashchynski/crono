@@ -38,5 +38,10 @@ describe Crono::CLI do
       cli.send(:parse_options, ["--logfile", "log/crono.log"])
       expect(Crono.config.logfile).to be_eql "log/crono.log"
     end
+
+    it "should set daemonize" do
+      cli.send(:parse_options, ["--daemonize"])
+      expect(Crono.config.daemonize).to be true
+    end
   end
 end
