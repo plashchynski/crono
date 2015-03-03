@@ -49,6 +49,11 @@ module Crono
         opts.on("-L", "--logfile PATH", "Path to writable logfile (Default: #{Crono.config.logfile})") do |logfile|
           Crono.config.logfile = logfile
         end
+
+        opts.on("-d", "--[no-]daemonize", "Daemonize process (Default: #{Crono.config.daemonize})") do |daemonize|
+          Crono.config.daemonize = daemonize
+        end
+        
       end.parse!(argv)
     end
   end
