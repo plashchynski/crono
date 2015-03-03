@@ -1,5 +1,7 @@
-Crono — Job scheduler for Rails [![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
+Crono — Job scheduler for Rails
 ------------------------
+[![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
+[![security](https://hakiri.io/github/plashchynski/crono/master.svg)](https://hakiri.io/github/plashchynski/crono/master)
 
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails. It's pure Ruby. It doesn't use Unix Cron and other platform-dependent things. So you can use it everywhere.
 
@@ -21,15 +23,15 @@ After you install Crono, you can run the generator:
 
     rails generate crono:install
 
-It will create a configuration file ```config/cronotab.rb```
+It will create a configuration file `config/cronotab.rb`
 Now you are ready to move forward to create a job and schedule it.
 
 
 ## Usage
 
-### Create Job
+#### Create Job
 
-Crono can use Active Job jobs in ```app/jobs/```. The only requirements is that the ```perform``` method should take no arguments.
+Crono can use Active Job jobs in `app/jobs/`. The only requirements is that the `perform` method should take no arguments.
 
 Here's an example of a test job:
 app/jobs/test_job.rb
@@ -41,7 +43,7 @@ app/jobs/test_job.rb
       end
     end
 
-The Active Job jobs is convenient because you can use one class in both periodic and enqueued ways. But it doesn't necessarily. Any class can be used as Job if it has a method ```perform``` without arguments:
+The Active Job jobs is convenient because you can use one class in both periodic and enqueued ways. But it doesn't necessarily. Any class can be used as Job if it has a method `perform` without arguments:
 
     class TestJob # this is not active job class
       def perform
@@ -51,9 +53,9 @@ The Active Job jobs is convenient because you can use one class in both periodic
     end
 
 
-### Schedule Jobs
+#### Schedule Jobs
 
-The schedule described in the configuration file ```config/cronotab.rb```, that we created using ```rails generate crono:install``` or manually. The semantic is pretty straightforward:
+The schedule described in the configuration file `config/cronotab.rb`, that we created using `rails generate crono:install` or manually. The semantic is pretty straightforward:
 
     Crono.perform(TestJob).every 2.days, at: "15:30"
 
@@ -62,19 +64,20 @@ You can schedule one job a few times if you want the job to be performed a few t
     Crono.perform(TestJob).every 1.days, at: "00:00"
     Crono.perform(TestJob).every 1.days, at: "12:00"
 
-The ```at``` can be a Hash:
+The `at` can be a Hash:
 
     Crono.perform(TestJob).every 1.days, at: {hour: 12, min: 15}
 
 
-### Run daemon
+#### Run daemon
 
 To run Crono daemon, in your Rails project root directory:
 
-    bundle exec crono
+    bundle exec crono RAILS_ENV=development
 
 
-### License
+## License
 
-Copyright 2015 Dzmitry Plashchynski <plashchynski@gmail.com>
-Licensed under the Apache License, Version 2.0
+Copyright 2015 Dzmitry Plashchynski <plashchynski@gmail.com>  
+Licensed under the Apache License, Version 2.0  
+Please see [LICENSE](https://github.com/plashchynski/crono/blob/master/LICENSE) for licensing details.
