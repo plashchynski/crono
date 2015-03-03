@@ -31,17 +31,17 @@ describe Crono::CLI do
   describe "#parse_options" do
     it "should set cronotab" do
       cli.send(:parse_options, ["--cronotab", "/tmp/cronotab.rb"])
-      expect(Crono.config.cronotab).to be_eql "/tmp/cronotab.rb"
+      expect(cli.config.cronotab).to be_eql "/tmp/cronotab.rb"
     end
 
     it "should set logfile" do
       cli.send(:parse_options, ["--logfile", "log/crono.log"])
-      expect(Crono.config.logfile).to be_eql "log/crono.log"
+      expect(cli.config.logfile).to be_eql "log/crono.log"
     end
 
     it "should set daemonize" do
       cli.send(:parse_options, ["--daemonize"])
-      expect(Crono.config.daemonize).to be true
+      expect(cli.config.daemonize).to be true
     end
   end
 end

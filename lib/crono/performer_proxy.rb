@@ -1,15 +1,16 @@
 module Crono
   class PerformerProxy
-    def initialize(performer)
+    def initialize(performer, schedule)
       @performer = performer
+      @schedule = schedule
     end
 
     def every(period, *args)
-      Crono.config.schedule.add(@performer, Period.new(period, *args))
+      @schedule.add(@performer, Period.new(period, *args))
     end
   end
 
   def self.perform(performer)
-    PerformerProxy.new(performer)
+    PerformerProxy.new(performer, Crono.schedule)
   end
 end
