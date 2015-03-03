@@ -2,7 +2,7 @@ require 'bundler/setup'
 Bundler.setup
 
 require 'timecop'
-require 'periodicity'
+require 'crono'
 
 RSpec.configure do |config|
 end

@@ -5,9 +5,9 @@ class TestJob < ActiveJob::Base
   def perform;end
 end
 
-describe Periodicity::PerformerProxy do
+describe Crono::PerformerProxy do
   it "should add job and period to schedule" do
-    Periodicity.perform(TestJob).every(2.days, at: "15:30")
-    expect(Periodicity::Config.instance.schedule).to_not be_empty
+    Crono.perform(TestJob).every(2.days, at: "15:30")
+    expect(Crono::Config.instance.schedule).to_not be_empty
   end
 end

@@ -1,4 +1,4 @@
-module Periodicity
+module Crono
   class PerformerProxy
     def initialize(performer)
       @performer = performer

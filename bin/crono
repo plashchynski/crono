@@ -2,10 +2,10 @@
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 
-require "periodicity/cli"
+require "crono/cli"
 
 begin
-  cli = Periodicity::CLI.instance
+  cli = Crono::CLI.instance
   cli.run
 rescue => e
   raise e if $DEBUG

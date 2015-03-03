@@ -1,6 +1,6 @@
-require 'periodicity'
+require 'crono'
 
-module Periodicity
+module Crono
   class CLI
     include Singleton
 
@@ -10,7 +10,7 @@ module Periodicity
     end
 
     def print_banner
-      puts "Loading Periodicity #{Periodicity::VERSION}"
+      puts "Loading Crono #{Crono::VERSION}"
       puts "Running in #{RUBY_DESCRIPTION}"
     end
 

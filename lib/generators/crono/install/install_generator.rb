@@ -1,11 +1,11 @@
-module Periodicity
+module Crono
   module Generators
     class InstallGenerator < ::Rails::Generators::Base
-      desc "Installs periodicity and generates the necessary configuration files"
+      desc "Installs crono and generates the necessary configuration files"
       source_root File.expand_path("../templates", __FILE__)
 
       def copy_config
-        template 'periodicity.rb.erb', 'config/initializers/periodicity.rb'
+        template 'crono.rb.erb', 'config/initializers/crono.rb'
       end
     end
   end

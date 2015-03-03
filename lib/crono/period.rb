@@ -1,4 +1,4 @@
-module Periodicity
+module Crono
   class Period
     def initialize(period, at: nil)
       @period = period

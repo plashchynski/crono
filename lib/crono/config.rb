@@ -1,4 +1,4 @@
-module Periodicity
+module Crono
   class Config
     include Singleton
 

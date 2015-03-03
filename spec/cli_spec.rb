@@ -1,8 +1,8 @@
 require "spec_helper"
-require 'periodicity/cli'
+require 'crono/cli'
 
-describe Periodicity::CLI do
-  let(:cli) { Periodicity::CLI.instance }
+describe Crono::CLI do
+  let(:cli) { Crono::CLI.instance }
 
   describe "#run" do
     it "should try to initialize rails with #load_rails" do
