@@ -42,8 +42,12 @@ module Crono
       OptionParser.new do |opts|
         opts.banner = "Usage: crono [options]"
 
-        opts.on("-c", "--cronotab cronotab.rb", "Cronotab file (Default: #{Crono.config.cronotab})") do |cronotab|
+        opts.on("-C", "--cronotab PATH", "Path to cronotab file (Default: #{Crono.config.cronotab})") do |cronotab|
           Crono.config.cronotab = cronotab
+        end
+
+        opts.on("-L", "--logfile PATH", "Path to writable logfile (Default: #{Crono.config.logfile})") do |logfile|
+          Crono.config.logfile = logfile
         end
       end.parse!(argv)
     end

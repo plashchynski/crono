@@ -33,5 +33,10 @@ describe Crono::CLI do
       cli.send(:parse_options, ["--cronotab", "/tmp/cronotab.rb"])
       expect(Crono.config.cronotab).to be_eql "/tmp/cronotab.rb"
     end
+
+    it "should set logfile" do
+      cli.send(:parse_options, ["--logfile", "log/crono.log"])
+      expect(Crono.config.logfile).to be_eql "log/crono.log"
+    end
   end
 end
