@@ -5,7 +5,7 @@ module Crono
     attr_accessor :schedule
 
     def initialize
-      self.schedule = []
+      self.schedule = Schedule.new
     end
   end
 end

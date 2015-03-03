@@ -7,7 +7,7 @@ module Crono
     def run
       load_rails
       print_banner
-      # start_working_loop
+      start_working_loop
     end
 
   private
