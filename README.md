@@ -1,11 +1,11 @@
 Crono — Job scheduler for Rails
 ------------------------
-
-[![Join the chat at https://gitter.im/plashchynski/crono](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/plashchynski/crono?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
+[![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
+[![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/
+crono)
 [![Code Climate](https://codeclimate.com/github/plashchynski/crono/badges/gpa.svg)](https://codeclimate.com/github/plashchynski/crono)
 [![security](https://hakiri.io/github/plashchynski/crono/master.svg)](https://hakiri.io/github/plashchynski/crono/master)
-[![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
+[![Join the chat at https://gitter.im/plashchynski/crono](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/plashchynski/crono?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails. It's pure Ruby. It doesn't use Unix Cron and other platform-dependent things. So you can use it everywhere.
 
@@ -79,6 +79,14 @@ To run Crono daemon, in your Rails project root directory:
 
     bundle exec crono RAILS_ENV=development
 
+crono usage:
+```
+Usage: crono [options]
+    -C, --cronotab PATH              Path to cronotab file (Default: config/cronotab.rb)
+    -L, --logfile PATH               Path to writable logfile (Default: log/crono.log)
+    -P, --pidfile PATH               Path to pidfile (Default: tmp/pids/crono.pid)
+    -d, --[no-]daemonize             Daemonize process (Default: false)
+```
 
 ## License
 
