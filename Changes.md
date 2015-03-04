@@ -7,3 +7,8 @@
 ———————————
 
 - Added -e/--environment ENV option to set the daemon rails environment.
+
+0.5.2
+———————————
+
+- Fix: Scheduled time now related to the last performing time.
