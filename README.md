@@ -34,7 +34,7 @@ Now you are ready to move forward to create a job and schedule it.
 
 #### Create Job
 
-Crono can use Active Job jobs in `app/jobs/`. The only requirements is that the `perform` method should take no arguments.
+Crono can use Active Job jobs from `app/jobs/`. The only requirements is that the `perform` method should take no arguments.
 
 Here's an example of a test job:
 app/jobs/test_job.rb
@@ -46,9 +46,9 @@ app/jobs/test_job.rb
       end
     end
 
-The Active Job jobs is convenient because you can use one class in both periodic and enqueued ways. But it doesn't necessarily. Any class can be used as Job if it has a method `perform` without arguments:
+The ActiveJob jobs is convenient because you can use one job in both periodic and enqueued ways. But Active Job is not required. Any class can be used as a crono job if it implements a method `perform` without arguments:
 
-    class TestJob # this is not active job class
+    class TestJob # This is not an Active Job job, but pretty legal Crono job.
       def perform
         # put you scheduled code here
         # Comments.deleted.clean_up...
@@ -56,20 +56,20 @@ The Active Job jobs is convenient because you can use one class in both periodic
     end
 
 
-#### Schedule Jobs
+#### Job Schedule
 
-The schedule described in the configuration file `config/cronotab.rb`, that we created using `crono:install` or manually. The semantic is pretty straightforward:
+The schedule described in the configuration file `config/cronotab.rb`, that created using `crono:install` or manually. The semantic is pretty straightforward:
 
     Crono.perform(TestJob).every 2.days, at: "15:30"
 
-You can schedule one job a few times if you want the job to be performed a few times a day:
+You can schedule one job a few times, if you want a job to be performed a few times a day:
 
-    Crono.perform(TestJob).every 1.days, at: "00:00"
-    Crono.perform(TestJob).every 1.days, at: "12:00"
+    Crono.perform(TestJob).every 1.day, at: "00:00"
+    Crono.perform(TestJob).every 1.day, at: "12:00"
 
 The `at` can be a Hash:
 
-    Crono.perform(TestJob).every 1.days, at: {hour: 12, min: 15}
+    Crono.perform(TestJob).every 1.day, at: {hour: 12, min: 15}
 
 
 #### Run daemon
