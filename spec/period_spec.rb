@@ -30,6 +30,11 @@ describe Crono::Period do
           @period = Crono::Period.new(2.day, at: 1)
         }.to raise_error("Unknown 'at' format")
       end
+
+      it "should return time in relation to last time" do
+        @period = Crono::Period.new(2.day)
+        expect(@period.next(since: 1.day.ago)).to be_eql(1.day.from_now)
+      end
     end
   end
 end

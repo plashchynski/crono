@@ -5,8 +5,9 @@ module Crono
       @at_hour, @at_min = parse_at(at) if at
     end
 
-    def next
-      @period.from_now.change({hour: @at_hour, min: @at_min}.compact)
+    def next(since: nil)
+      since ||= Time.now
+      @period.since(since).change({hour: @at_hour, min: @at_min}.compact)
     end
 
     def parse_at(at)
