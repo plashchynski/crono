@@ -3,17 +3,15 @@ require 'optparse'
 
 module Crono
   mattr_accessor :schedule
+  mattr_accessor :logger
 
   class CLI
     include Singleton
     attr_accessor :config
-    attr_accessor :schedule
-    attr_accessor :logger
 
     def initialize
       self.config = Config.new
-      self.schedule = Schedule.new
-      Crono.schedule = schedule
+      Crono.schedule = Schedule.new
     end
 
     def run
@@ -44,12 +42,12 @@ module Crono
 
     def init_logger
       logfile = config.daemonize ? config.logfile : STDOUT
-      self.logger = Logger.new(logfile)
+      Crono.logger = Logger.new(logfile)
     end
 
     def print_banner
-      logger.info "Loading Crono #{Crono::VERSION}"
-      logger.info "Running in #{RUBY_DESCRIPTION}"
+      Crono.logger.info "Loading Crono #{Crono::VERSION}"
+      Crono.logger.info "Running in #{RUBY_DESCRIPTION}"
     end
 
     def load_rails
@@ -60,16 +58,11 @@ module Crono
       require File.expand_path(config.cronotab)
     end
 
-    def run_job(klass)
-      logger.info "Perform #{klass}"
-      Thread.new { klass.new.perform }
-    end
-
     def start_working_loop
       loop do
-        klass, time = schedule.next
-        sleep(time - Time.now)
-        run_job(klass)
+        job = Crono.schedule.next
+        sleep(job.next - Time.now)
+        job.perform
       end
     end
 

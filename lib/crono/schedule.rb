@@ -1,20 +1,22 @@
 module Crono
   class Schedule
+    attr_accessor :schedule
+
     def initialize
-      @schedule = []
+      self.schedule = []
     end
 
-    def add(peformer, period)
-      @schedule << [peformer, period]
+    def add(job)
+      schedule << job
     end
 
     def next
-      [queue.first[0], queue.first[1].next]
+      queue.first
     end
 
-    private
+  private
     def queue
-      @schedule.sort { |a,b| a[1].next <=> b[1].next }
+      schedule.sort { |a,b| a.next <=> b.next }
     end
   end
 end

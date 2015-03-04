@@ -18,13 +18,6 @@ describe Crono::CLI do
     end
   end
 
-  describe "#run_job" do
-    it "should run job in separate thread" do
-      thread = cli.send(:run_job, TestJob).join
-      expect(thread).to be_stop
-    end
-  end
-
   describe "#start_working_loop" do
     it "should start working loop"
   end
