@@ -26,7 +26,7 @@ Add the following line to your application's Gemfile:
 
     gem 'crono'
 
-Run the bundle command to install it.  
+Run the `bundle` command to install it.  
 After you install Crono, you can run the generator:
 
     rails generate crono:install
@@ -42,8 +42,8 @@ Now you are ready to move forward to create a job and schedule it.
 Crono can use Active Job jobs from `app/jobs/`. The only requirements is that the `perform` method should take no arguments.
 
 Here's an example of a test job:
-app/jobs/test_job.rb
 
+    # app/jobs/test_job.rb
     class TestJob < ActiveJob::Base
       def perform
         # put you scheduled code here
@@ -65,6 +65,7 @@ The ActiveJob jobs is convenient because you can use one job in both periodic an
 
 The schedule described in the configuration file `config/cronotab.rb`, that created using `crono:install` or manually. The semantic is pretty straightforward:
 
+    # config/cronotab.rb
     Crono.perform(TestJob).every 2.days, at: "15:30"
 
 You can schedule one job a few times, if you want a job to be performed a few times a day:
@@ -94,10 +95,15 @@ Usage: crono [options]
 ```
 
 ## Capistrano
+
 Use the `capistrano-crono` gem ([github](https://github.com/plashchynski/capistrano-crono/)).
+
+
+## Support
+
+Feel free to create [issues](https://github.com/plashchynski/crono/issues)
+
 
 ## License
 
-Copyright 2015 Dzmitry Plashchynski <plashchynski@gmail.com>  
-Licensed under the Apache License, Version 2.0  
 Please see [LICENSE](https://github.com/plashchynski/crono/blob/master/LICENSE) for licensing details.
