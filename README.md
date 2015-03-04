@@ -90,6 +90,7 @@ Usage: crono [options]
     -L, --logfile PATH               Path to writable logfile (Default: log/crono.log)
     -P, --pidfile PATH               Path to pidfile (Default: tmp/pids/crono.pid)
     -d, --[no-]daemonize             Daemonize process (Default: false)
+    -e, --environment ENV            Application environment (Default: development)
 ```
 
 ## License

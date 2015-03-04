@@ -53,6 +53,7 @@ module Crono
     end
 
     def load_rails
+      ENV['RACK_ENV'] = ENV['RAILS_ENV'] = config.environment
       require 'rails'
       require File.expand_path("config/environment.rb")
       ::Rails.application.eager_load!
@@ -91,7 +92,10 @@ module Crono
         opts.on("-d", "--[no-]daemonize", "Daemonize process (Default: #{config.daemonize})") do |daemonize|
           config.daemonize = daemonize
         end
-        
+
+        opts.on '-e', '--environment ENV', "Application environment (Default: #{config.environment})" do |env|
+          config.environment = env
+        end
       end.parse!(argv)
     end
   end

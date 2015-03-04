@@ -49,5 +49,10 @@ describe Crono::CLI do
       cli.send(:parse_options, ["--daemonize"])
       expect(cli.config.daemonize).to be true
     end
+
+    it "should set environment" do
+      cli.send(:parse_options, ["--environment", "production"])
+      expect(cli.config.environment).to be_eql("production")
+    end
   end
 end
