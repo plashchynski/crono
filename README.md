@@ -93,6 +93,9 @@ Usage: crono [options]
     -e, --environment ENV            Application environment (Default: development)
 ```
 
+## Capistrano
+Use the `capistrano-crono` gem ([github](https://github.com/plashchynski/capistrano-crono/)).
+
 ## License
 
 Copyright 2015 Dzmitry Plashchynski <plashchynski@gmail.com>  
