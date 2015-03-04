@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    crono (0.5.0)
+    crono (0.5.1)
       activejob (~> 4.0)
       activesupport (~> 4.0)
 
