@@ -12,6 +12,10 @@ module Crono
       period.next(since: last_performed_at)
     end
 
+    def description
+      "Perform #{performer} #{period.description}"
+    end
+
     def perform
       Crono.logger.info "Perform #{performer}"
       self.last_performed_at = Time.now

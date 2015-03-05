@@ -19,4 +19,10 @@ describe Crono::Job do
       expect(thread).to be_stop
     end
   end
+
+  describe "#description" do
+    it "should return job identificator" do
+      expect(job.description).to be_eql("Perform TestJob every 2 days")
+    end
+  end
 end
