@@ -7,6 +7,13 @@ describe Crono::Period do
     end
   end
 
+  describe "#description" do
+    it "should return period description" do
+      @period = Crono::Period.new(2.day, at: "15:20")
+      expect(@period.description).to be_eql("every 2 days at 15:20")
+    end
+  end
+
   describe "#next" do
     context "in daily basis" do
       it "should return the time 2 days from now" do

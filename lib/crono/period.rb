@@ -10,6 +10,12 @@ module Crono
       @period.since(since).change({hour: @at_hour, min: @at_min}.compact)
     end
 
+    def description
+      desc = "every #{@period.inspect}"
+      desc += " at #{@at_hour}:#{@at_min}" if @at_hour && @at_min
+      desc
+    end
+
     def parse_at(at)
       case at
       when String
