@@ -1,13 +1,13 @@
 module Crono
   class Schedule
-    attr_accessor :schedule
+    attr_accessor :jobs
 
     def initialize
-      self.schedule = []
+      self.jobs = []
     end
 
     def add(job)
-      schedule << job
+      jobs << job
     end
 
     def next
@@ -16,7 +16,7 @@ module Crono
 
   private
     def queue
-      schedule.sort { |a,b| a.next <=> b.next }
+      jobs.sort { |a,b| a.next <=> b.next }
     end
   end
 end

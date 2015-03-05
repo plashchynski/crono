@@ -12,7 +12,7 @@ describe Crono::Schedule do
       Crono::Period.new(1.day, at: "15:30"),
       Crono::Period.new(7.day, at: "06:05")
     ].map { |period| Crono::Job.new(TestJob, period) }
-    @schedule.schedule = @jobs
+    @schedule.jobs = @jobs
   end
 
   describe "#next" do

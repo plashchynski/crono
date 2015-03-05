@@ -48,6 +48,10 @@ module Crono
     def print_banner
       Crono.logger.info "Loading Crono #{Crono::VERSION}"
       Crono.logger.info "Running in #{RUBY_DESCRIPTION}"
+      Crono.logger.info "Schedule:"
+      Crono.schedule.jobs.each do |job|
+        Crono.logger.info job.description
+      end
     end
 
     def load_rails
