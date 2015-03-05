@@ -64,6 +64,7 @@ module Crono
     end
 
     def start_working_loop
+      Thread.abort_on_exception = true
       while job = Crono.schedule.next do
         sleep(job.next - Time.now)
         job.perform
