@@ -1,5 +1,5 @@
 module Crono
-  class Schedule
+  class Scheduler
     attr_accessor :jobs
 
     def initialize

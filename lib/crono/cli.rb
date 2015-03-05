@@ -2,7 +2,7 @@ require 'crono'
 require 'optparse'
 
 module Crono
-  mattr_accessor :schedule
+  mattr_accessor :scheduler
   mattr_accessor :logger
 
   class CLI
@@ -12,7 +12,7 @@ module Crono
 
     def initialize
       self.config = Config.new
-      Crono.schedule = Schedule.new
+      Crono.scheduler = Scheduler.new
     end
 
     def run
@@ -49,8 +49,8 @@ module Crono
     def print_banner
       logger.info "Loading Crono #{Crono::VERSION}"
       logger.info "Running in #{RUBY_DESCRIPTION}"
-      logger.info "Schedule:"
-      Crono.schedule.jobs.each do |job|
+      logger.info "Jobs:"
+      Crono.scheduler.jobs.each do |job|
         logger.info job.description
       end
     end
@@ -65,7 +65,7 @@ module Crono
 
     def start_working_loop
       Thread.abort_on_exception = true
-      while job = Crono.schedule.next do
+      while job = Crono.scheduler.next do
         sleep(job.next - Time.now)
         job.perform
       end
