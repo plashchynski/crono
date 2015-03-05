@@ -12,7 +12,7 @@ module Crono
 
     def description
       desc = "every #{@period.inspect}"
-      desc += " at #{@at_hour}:#{@at_min}" if @at_hour && @at_min
+      desc += " at %.2i:%.2i" % [@at_hour, @at_min] if @at_hour && @at_min
       desc
     end
 
