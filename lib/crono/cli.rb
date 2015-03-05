@@ -8,6 +8,7 @@ module Crono
   class CLI
     include Singleton
     attr_accessor :config
+    attr_accessor :logger
 
     def initialize
       self.config = Config.new
@@ -42,15 +43,15 @@ module Crono
 
     def init_logger
       logfile = config.daemonize ? config.logfile : STDOUT
-      Crono.logger = Logger.new(logfile)
+      Crono.logger = self.logger = Logger.new(logfile)
     end
 
     def print_banner
-      Crono.logger.info "Loading Crono #{Crono::VERSION}"
-      Crono.logger.info "Running in #{RUBY_DESCRIPTION}"
-      Crono.logger.info "Schedule:"
+      logger.info "Loading Crono #{Crono::VERSION}"
+      logger.info "Running in #{RUBY_DESCRIPTION}"
+      logger.info "Schedule:"
       Crono.schedule.jobs.each do |job|
-        Crono.logger.info job.description
+        logger.info job.description
       end
     end
 
