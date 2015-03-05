@@ -1,5 +1,7 @@
 module Crono
   class Job
+    include Logging
+
     attr_accessor :performer
     attr_accessor :period
     attr_accessor :last_performed_at
@@ -17,11 +19,11 @@ module Crono
     end
 
     def perform
-      Crono.logger.info "Perform #{performer}"
+      logger.info "Perform #{performer}"
       self.last_performed_at = Time.now
       Thread.new do
         performer.new.perform
-        Crono.logger.info "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
+        logger.info "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
       end
     end
   end

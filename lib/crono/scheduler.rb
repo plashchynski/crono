@@ -6,7 +6,7 @@ module Crono
       self.jobs = []
     end
 
-    def add(job)
+    def add_job(job)
       jobs << job
     end
 
@@ -16,7 +16,7 @@ module Crono
 
   private
     def queue
-      jobs.sort { |a,b| a.next <=> b.next }
+      jobs.sort_by(&:next)
     end
   end
 end

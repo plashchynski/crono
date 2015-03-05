@@ -7,7 +7,7 @@ module Crono
 
     def every(period, *args)
       job = Job.new(@performer, Period.new(period, *args))
-      @scheduler.add(job)
+      @scheduler.add_job(job)
     end
   end
 

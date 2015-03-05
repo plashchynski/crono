@@ -3,6 +3,7 @@ end
 
 require "active_support/all"
 require "crono/version.rb"
+require "crono/logging.rb"
 require "crono/period.rb"
 require "crono/job.rb"
 require "crono/scheduler.rb"

@@ -3,12 +3,12 @@ require 'optparse'
 
 module Crono
   mattr_accessor :scheduler
-  mattr_accessor :logger
 
   class CLI
     include Singleton
+    include Logging
+
     attr_accessor :config
-    attr_accessor :logger
 
     def initialize
       self.config = Config.new
@@ -17,11 +17,18 @@ module Crono
 
     def run
       parse_options(ARGV)
-      init_logger
-      daemonize if config.daemonize
+
+      if config.daemonize
+        set_log_to(config.logfile)
+        daemonize 
+      else
+        set_log_to(STDOUT)
+      end
+
       write_pid
       load_rails
       print_banner
+
       start_working_loop
     end
 
@@ -33,6 +40,7 @@ module Crono
         File.open(config.logfile, 'ab') { |f| io.reopen(f) }
         io.sync = true
       end
+
       $stdin.reopen("/dev/null")
     end
 
@@ -41,14 +49,10 @@ module Crono
       File.write(pidfile, ::Process.pid)
     end
 
-    def init_logger
-      logfile = config.daemonize ? config.logfile : STDOUT
-      Crono.logger = self.logger = Logger.new(logfile)
-    end
-
     def print_banner
       logger.info "Loading Crono #{Crono::VERSION}"
       logger.info "Running in #{RUBY_DESCRIPTION}"
+
       logger.info "Jobs:"
       Crono.scheduler.jobs.each do |job|
         logger.info job.description
