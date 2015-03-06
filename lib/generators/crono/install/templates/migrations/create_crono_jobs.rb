@@ -1,4 +1,4 @@
-class CreateActiveAdminComments < ActiveRecord::Migration
+class CreateCronoJobs < ActiveRecord::Migration
   def self.up
     create_table :crono_jobs do |t|
       t.string    :job_id, null: false
@@ -6,7 +6,7 @@ class CreateActiveAdminComments < ActiveRecord::Migration
       t.datetime  :last_performed_at
       t.timestamps
     end
-    add_index :crono_jobs, [:job_id]
+    add_index :crono_jobs, [:job_id], unique: true
   end
 
   def self.down
