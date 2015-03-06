@@ -30,5 +30,14 @@ module Crono
         logger.info "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
       end
     end
+
+    def save
+      model.update(last_performed_at: last_performed_at)
+    end
+
+  private
+    def model
+      @model ||= Crono::CronoJob.find_or_create_by(job_id: job_id)
+    end
   end
 end

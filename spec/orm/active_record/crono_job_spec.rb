@@ -8,7 +8,7 @@ CreateActiveAdminComments.up
 describe Crono::CronoJob do
   let(:valid_attrs) do
     {
-      job_id: "Perform TestJob every 2 days"
+      job_id: "Perform TestJob every 3 days"
     }
   end
 
@@ -27,7 +27,7 @@ describe Crono::CronoJob do
 
   it "should save job_id to DB" do
     Crono::CronoJob.create!(valid_attrs)
-    @crono_job = Crono::CronoJob.where(job_id: valid_attrs[:job_id]).first
+    @crono_job = Crono::CronoJob.find_by(job_id: valid_attrs[:job_id])
     expect(@crono_job).to be_present
   end
 end
