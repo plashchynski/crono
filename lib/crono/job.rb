@@ -35,6 +35,10 @@ module Crono
       model.update(last_performed_at: last_performed_at)
     end
 
+    def load
+      self.last_performed_at = model.last_performed_at
+    end
+
   private
     def model
       @model ||= Crono::CronoJob.find_or_create_by(job_id: job_id)

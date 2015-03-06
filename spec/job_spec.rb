@@ -40,4 +40,17 @@ describe Crono::Job do
       expect(@crono_job.last_performed_at).to be_eql(job.last_performed_at)
     end
   end
+
+  describe "#load" do
+    before do
+      @saved_last_performed_at = job.last_performed_at = Time.now
+      job.save
+    end
+
+    it "should load info from DB" do
+      @job = Crono::Job.new(TestJob, period)
+      @job.load
+      expect(@job.last_performed_at).to be_eql @saved_last_performed_at
+    end
+  end
 end
