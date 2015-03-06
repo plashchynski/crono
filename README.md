@@ -31,7 +31,7 @@ After you install Crono, you can run the generator:
 
     rails generate crono:install
 
-It will create a configuration file `config/cronotab.rb`  
+It will create a configuration file `config/cronotab.rb` and migration  
 Now you are ready to move forward to create a job and schedule it.
 
 

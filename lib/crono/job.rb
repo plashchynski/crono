@@ -18,6 +18,10 @@ module Crono
       "Perform #{performer} #{period.description}"
     end
 
+    def job_id
+      description
+    end
+
     def perform
       logger.info "Perform #{performer}"
       self.last_performed_at = Time.now

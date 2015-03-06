@@ -5,8 +5,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "crono/cli"
 
 begin
-  cli = Crono::CLI.instance
-  cli.run
+  Crono::CLI.instance.run
 rescue => e
   raise e if $DEBUG
   STDERR.puts e.message
