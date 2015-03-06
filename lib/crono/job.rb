@@ -25,6 +25,7 @@ module Crono
     def perform
       logger.info "Perform #{performer}"
       self.last_performed_at = Time.now
+      save
       Thread.new do
         performer.new.perform
         logger.info "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)

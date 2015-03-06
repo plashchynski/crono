@@ -1,9 +1,4 @@
 require "spec_helper"
-require "generators/crono/install/templates/migrations/create_crono_jobs.rb"
-
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: ':memory:')
-ActiveRecord::Base.logger = Logger.new(STDOUT)
-CreateActiveAdminComments.up
 
 describe Crono::CronoJob do
   let(:valid_attrs) do

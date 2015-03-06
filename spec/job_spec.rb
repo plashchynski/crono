@@ -18,6 +18,12 @@ describe Crono::Job do
       thread = job.perform.join
       expect(thread).to be_stop
     end
+
+    it "should call Job#save after run" do
+      expect(job).to receive(:save)
+      job.perform.join
+      job.send(:model).destroy
+    end
   end
 
   describe "#description" do
