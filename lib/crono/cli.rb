@@ -29,6 +29,7 @@ module Crono
       load_rails
       print_banner
 
+      check_jobs
       start_working_loop
     end
 
@@ -65,6 +66,12 @@ module Crono
       require File.expand_path("config/environment.rb")
       ::Rails.application.eager_load!
       require File.expand_path(config.cronotab)
+    end
+
+    def check_jobs
+      if Crono.scheduler.jobs.empty?
+        logger.error "You have no jobs defined in you cronotab file #{config.cronotab}"
+      end
     end
 
     def start_working_loop
