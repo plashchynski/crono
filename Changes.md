@@ -13,7 +13,7 @@
 
 - Fix: Scheduled time now related to the last performing time.
 
-0.6.0
+0.6.1
 -----------
 
 - Persist job state to your database.
