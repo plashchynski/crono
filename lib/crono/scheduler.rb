@@ -7,6 +7,7 @@ module Crono
     end
 
     def add_job(job)
+      job.load
       jobs << job
     end
 
