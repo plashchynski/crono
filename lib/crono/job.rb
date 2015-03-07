@@ -1,3 +1,6 @@
+require 'stringio'
+require 'logger'
+
 module Crono
   class Job
     include Logging
@@ -5,9 +8,13 @@ module Crono
     attr_accessor :performer
     attr_accessor :period
     attr_accessor :last_performed_at
+    attr_accessor :job_log
+    attr_accessor :job_logger
 
     def initialize(performer, period)
       self.performer, self.period = performer, period
+      self.job_log = StringIO.new
+      self.job_logger = Logger.new(job_log)
     end
 
     def next
@@ -24,12 +31,12 @@ module Crono
     end
 
     def perform
-      logger.info "Perform #{performer}"
+      log "Perform #{performer}"
       self.last_performed_at = Time.now
       save
       Thread.new do
         performer.new.perform
-        logger.info "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
+        log "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
       end
     end
 
@@ -42,6 +49,11 @@ module Crono
     end
 
   private
+    def log(message)
+      logger.info message
+      job_logger.info message
+    end
+
     def model
       @model ||= Crono::CronoJob.find_or_create_by(job_id: job_id)
     end

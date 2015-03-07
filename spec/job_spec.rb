@@ -19,7 +19,7 @@ describe Crono::Job do
       expect(thread).to be_stop
     end
 
-    it "should call Job#save after run" do
+    it "should call Job#save during perform" do
       expect(job).to receive(:save)
       job.perform.join
       job.send(:model).destroy
@@ -53,10 +53,25 @@ describe Crono::Job do
       job.save
     end
 
-    it "should load info from DB" do
+    it "should load last_performed_at from DB" do
       @job = Crono::Job.new(TestJob, period)
       @job.load
       expect(@job.last_performed_at.utc).to be_eql @saved_last_performed_at.utc
+    end
+  end
+
+  describe "#log" do
+    it "should write log messages to both common and job log" do
+      message = "Test message"
+      expect(job.logger).to receive(:info).with(message)
+      expect(job.job_logger).to receive(:info).with(message)
+      job.send(:log, message)
+    end
+
+    it "should write job log to Job#job_log" do
+      message = "Test message"
+      job.send(:log, message)
+      expect(job.job_log.string).to include(message)
     end
   end
 end
