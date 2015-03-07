@@ -34,10 +34,18 @@ module Crono
     def perform
       log "Perform #{performer}"
       self.last_performed_at = Time.now
-      save
+
       Thread.new do
-        performer.new.perform
-        log "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
+        begin
+          performer.new.perform
+        rescue Exception => e
+          log "Finished #{performer} in %.2f seconds with error: #{e.message}" % (Time.now - last_performed_at)
+          log e.backtrace.join("\n")
+        else
+          log "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
+        ensure
+          save
+        end
       end
     end
 

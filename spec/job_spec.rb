@@ -4,9 +4,16 @@ class TestJob
   def perform;end
 end
 
+class TestFailingJob
+  def perform
+    raise "Some error"
+  end
+end
+
 describe Crono::Job do
   let(:period) { Crono::Period.new(2.day) }
   let(:job) { Crono::Job.new(TestJob, period) } 
+  let(:failing_job) { Crono::Job.new(TestFailingJob, period) }
 
   it "should contain performer and period" do
     expect(job.performer).to be TestJob
@@ -15,14 +22,17 @@ describe Crono::Job do
 
   describe "#perform" do
     it "should run performer in separate thread" do
+      expect(job).to receive(:save)
       thread = job.perform.join
       expect(thread).to be_stop
+      job.send(:model).destroy
     end
 
-    it "should call Job#save during perform" do
-      expect(job).to receive(:save)
-      job.perform.join
-      job.send(:model).destroy
+    it "should save performin errors to log" do
+      thread = failing_job.perform.join
+      expect(thread).to be_stop
+      saved_log = Crono::CronoJob.find_by(job_id: failing_job.job_id).log
+      expect(saved_log).to include "Some error"
     end
   end
 
@@ -43,7 +53,7 @@ describe Crono::Job do
       job.last_performed_at = Time.now
       job.save
       @crono_job = Crono::CronoJob.find_by(job_id: job.job_id)
-      expect(@crono_job.last_performed_at.utc).to be_eql job.last_performed_at.utc
+      expect(@crono_job.last_performed_at.utc.to_s).to be_eql job.last_performed_at.utc.to_s
     end
 
     it "should save and truncate job log" do
@@ -64,7 +74,7 @@ describe Crono::Job do
     it "should load last_performed_at from DB" do
       @job = Crono::Job.new(TestJob, period)
       @job.load
-      expect(@job.last_performed_at.utc).to be_eql @saved_last_performed_at.utc
+      expect(@job.last_performed_at.utc.to_s).to be_eql @saved_last_performed_at.utc.to_s
     end
   end
 
