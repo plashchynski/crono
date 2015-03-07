@@ -15,7 +15,7 @@ module Crono
       self.performer, self.period = performer, period
       self.job_log = StringIO.new
       self.job_logger = Logger.new(job_log)
-      @log_semaphore = Mutex.new
+      @semaphore = Mutex.new
     end
 
     def next
@@ -42,12 +42,12 @@ module Crono
     end
 
     def save
-      log = model.reload.log || ""
-      @log_semaphore.synchronize do
+      @semaphore.synchronize do
+        log = model.reload.log || ""
         log << job_log.string
         job_log.truncate(job_log.rewind)
+        model.update(last_performed_at: last_performed_at, log: log)
       end
-      model.update(last_performed_at: last_performed_at, log: log)
     end
 
     def load
@@ -56,7 +56,7 @@ module Crono
 
   private
     def log(message)
-      @log_semaphore.synchronize do
+      @semaphore.synchronize do
         logger.info message
         job_logger.info message
       end
