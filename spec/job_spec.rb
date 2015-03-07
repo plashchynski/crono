@@ -45,6 +45,14 @@ describe Crono::Job do
       @crono_job = Crono::CronoJob.find_by(job_id: job.job_id)
       expect(@crono_job.last_performed_at.utc).to be_eql job.last_performed_at.utc
     end
+
+    it "should save and truncate job log" do
+      message = "test message"
+      job.send(:log, message)
+      job.save
+      expect(job.send(:model).reload.log).to include message
+      expect(job.job_log.string).to be_empty
+    end
   end
 
   describe "#load" do
