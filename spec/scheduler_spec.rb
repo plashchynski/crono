@@ -25,11 +25,7 @@ describe Crono::Scheduler do
 
   describe "#next" do
     it "should return next job in schedule" do
-      expect(@scheduler.next).to be @jobs[1]
-    end
-
-    it "should return next based on last" do
-      expect(@scheduler.next)
+      expect(@scheduler.next).to be @jobs[2]
     end
   end
 end

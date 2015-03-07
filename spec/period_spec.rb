@@ -22,12 +22,14 @@ describe Crono::Period do
       end
 
       it "should set time to 'at' time as a string" do
-        @period = Crono::Period.new(2.day, at: "15:20")
-        expect(@period.next).to be_eql(2.day.from_now.change(hour: 15, min: 20))
+        time = 10.minutes.ago
+        @period = Crono::Period.new(2.day, at: [time.hour, time.min].join(':'))
+        expect(@period.next).to be_eql(2.day.from_now.change(hour: time.hour, min: time.min))
       end
 
       it "should set time to 'at' time as a hash" do
-        at = {hour: 18, min: 45}
+        time = 10.minutes.ago
+        at = {hour: time.hour, min: time.min}
         @period = Crono::Period.new(2.day, at: at)
         expect(@period.next).to be_eql(2.day.from_now.change(at))
       end
@@ -41,6 +43,13 @@ describe Crono::Period do
       it "should return time in relation to last time" do
         @period = Crono::Period.new(2.day)
         expect(@period.next(since: 1.day.ago)).to be_eql(1.day.from_now)
+      end
+
+      it "should return today time if it is first run and not too late" do
+        time = 10.minutes.from_now
+        at = {hour: time.hour, min: time.min}
+        @period = Crono::Period.new(2.day, at: at)
+        expect(@period.next).to be_eql(Time.now.change(at))
       end
     end
   end

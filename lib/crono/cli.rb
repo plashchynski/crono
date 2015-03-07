@@ -56,7 +56,7 @@ module Crono
 
       logger.info "Jobs:"
       Crono.scheduler.jobs.each do |job|
-        logger.info job.description
+        logger.info %{"#{job.performer}" with rule "#{job.period.description}" next time will perform at #{job.next}}
       end
     end
 

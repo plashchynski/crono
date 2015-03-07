@@ -6,8 +6,13 @@ module Crono
     end
 
     def next(since: nil)
-      since ||= Time.now
-      @period.since(since).change({hour: @at_hour, min: @at_min}.compact)
+      if since.nil?
+        @next = Time.now.change(time_atts)
+        return @next if @next.future?
+        since = Time.now
+      end
+
+      @period.since(since).change(time_atts)
     end
 
     def description
@@ -26,6 +31,11 @@ module Crono
       else
         raise "Unknown 'at' format"
       end
+    end
+
+  private
+    def time_atts
+      {hour: @at_hour, min: @at_min}.compact
     end
   end
 end
