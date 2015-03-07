@@ -43,7 +43,7 @@ describe Crono::Job do
       job.last_performed_at = Time.now
       job.save
       @crono_job = Crono::CronoJob.find_by(job_id: job.job_id)
-      expect(@crono_job.last_performed_at.to_datetime).to be_eql(job.last_performed_at.to_datetime)
+      expect(@crono_job.last_performed_at.to_datetime.to_s).to be_eql job.last_performed_at.to_datetime.to_s
     end
   end
 
@@ -56,7 +56,7 @@ describe Crono::Job do
     it "should load info from DB" do
       @job = Crono::Job.new(TestJob, period)
       @job.load
-      expect(@job.last_performed_at.to_datetime).to be_eql @saved_last_performed_at.to_datetime
+      expect(@job.last_performed_at.to_datetime.to_s).to be_eql @saved_last_performed_at.to_datetime.to_s
     end
   end
 end
