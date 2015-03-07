@@ -4,7 +4,7 @@ class CreateCronoJobs < ActiveRecord::Migration
       t.string    :job_id, null: false
       t.text      :log
       t.datetime  :last_performed_at
-      t.timestamps
+      t.timestamps null: false
     end
     add_index :crono_jobs, [:job_id], unique: true
   end
