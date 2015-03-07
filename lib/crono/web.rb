@@ -14,5 +14,10 @@ module Crono
       @jobs = Crono::CronoJob.all
       haml :dashboard, format: :html5
     end
+
+    get '/jobs/:id' do
+      @job = Crono::CronoJob.find(params[:id])
+      haml :job
+    end
   end
 end
