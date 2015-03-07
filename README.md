@@ -24,7 +24,9 @@ Other versions are untested but might work fine.
 
 Add the following line to your application's Gemfile:
 
-    gem 'crono'
+```ruby
+gem 'crono'
+```
 
 Run the `bundle` command to install it.  
 After you install Crono, you can run the generator:
@@ -47,40 +49,48 @@ Crono can use Active Job jobs from `app/jobs/`. The only requirements is that th
 
 Here's an example of a test job:
 
-    # app/jobs/test_job.rb
-    class TestJob < ActiveJob::Base
-      def perform
-        # put you scheduled code here
-        # Comments.deleted.clean_up...
-      end
-    end
+```ruby
+# app/jobs/test_job.rb
+class TestJob < ActiveJob::Base
+  def perform
+    # put you scheduled code here
+    # Comments.deleted.clean_up...
+  end
+end
+```
 
 The ActiveJob jobs is convenient because you can use one job in both periodic and enqueued ways. But Active Job is not required. Any class can be used as a crono job if it implements a method `perform` without arguments:
 
-    class TestJob # This is not an Active Job job, but pretty legal Crono job.
-      def perform
-        # put you scheduled code here
-        # Comments.deleted.clean_up...
-      end
-    end
-
+```ruby
+class TestJob # This is not an Active Job job, but pretty legal Crono job.
+  def perform
+    # put you scheduled code here
+    # Comments.deleted.clean_up...
+  end
+end
+```
 
 #### Job Schedule
 
 The schedule described in the configuration file `config/cronotab.rb`, that created using `crono:install` or manually. The semantic is pretty straightforward:
 
-    # config/cronotab.rb
-    Crono.perform(TestJob).every 2.days, at: "15:30"
+```ruby
+# config/cronotab.rb
+Crono.perform(TestJob).every 2.days, at: "15:30"
+```
 
 You can schedule one job a few times, if you want a job to be performed a few times a day:
 
-    Crono.perform(TestJob).every 1.day, at: "00:00"
-    Crono.perform(TestJob).every 1.day, at: "12:00"
+```ruby
+Crono.perform(TestJob).every 1.day, at: "00:00"
+Crono.perform(TestJob).every 1.day, at: "12:00"
+```
 
 The `at` can be a Hash:
 
-    Crono.perform(TestJob).every 1.day, at: {hour: 12, min: 15}
-
+```ruby
+Crono.perform(TestJob).every 1.day, at: {hour: 12, min: 15}
+```
 
 #### Run daemon
 
@@ -97,6 +107,28 @@ Usage: crono [options]
     -d, --[no-]daemonize             Daemonize process (Default: false)
     -e, --environment ENV            Application environment (Default: development)
 ```
+
+## Web UI
+
+Crono comes with a Sinatra application that can display the current state of Crono jobs.  
+Add `sinatra` and `haml` to your Gemfile  
+
+```ruby
+gam 'haml'
+gem 'sinatra', require: nil
+```
+
+Add the following to your `config/routes.rb`:
+
+```ruby
+require 'crono/web'
+
+Rails.application.routes.draw do
+    mount Crono::Web, at: '/crono'
+    ...
+```
+
+Access management and other questions described in the [wiki](https://github.com/plashchynski/crono/wiki/Web-UI).
 
 ## Capistrano
 

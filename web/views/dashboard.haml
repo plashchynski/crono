@@ -1,0 +1,27 @@
+!!! 5
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{"http-equiv" => "X-UA-Compatible", content: "IE=edge"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+
+    %title Crono Dashboard
+
+    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css", rel: "stylesheet"}/
+    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css", rel: "stylesheet"}/
+
+  %body
+    .container
+      %h2 Crono Jobs
+      %table.table
+        %tr
+          %th Job
+          %th Last performed at
+          %th
+        - for job in @jobs
+          %tr
+            %td= job.job_id
+            %td= job.last_performed_at
+
+    %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"}
+    %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"}
