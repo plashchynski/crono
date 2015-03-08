@@ -7,11 +7,18 @@
 
     %title Crono Dashboard
 
-    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css", rel: "stylesheet"}/
-    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css", rel: "stylesheet"}/
+    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css", rel: "stylesheet"}
+    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css", rel: "stylesheet"}
+    %link{href: "#{env['SCRIPT_NAME']}/custom.css", rel: "stylesheet"}
 
   %body
+    %br
+    %br
     .container
+      .page-header
+        %h1
+          Crono #{Crono::VERSION}
+          %small Dashboard
       = yield
 
     %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"}

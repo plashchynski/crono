@@ -1,0 +1,20 @@
+.container {
+  background-color: #CFD8DC;
+}
+
+body {
+  background-color: #455A64;
+}
+
+.page-header {
+  border-bottom: 1px solid #B6B6B6;
+}
+
+#job_list td,#job_list th {
+  border-top: 1px solid #B6B6B6;
+  color: #212121;
+}
+
+.breadcrumb {
+  background-color: #FFFFFF;
+}

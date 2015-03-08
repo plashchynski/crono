@@ -1,7 +1,8 @@
-.page-header
-  %h1 Crono Dashboard
+%ol.breadcrumb
+  %li.active Home
+
 %h3 Running Jobs
-%table.table
+%table.table#job_list
   %tr
     %th Job
     %th Last performed at
@@ -9,6 +10,8 @@
   - for job in @jobs
     %tr
       %td= job.job_id
-      %td= job.last_performed_at
+      %td= job.last_performed_at || "—"
       %td
-        %a{href: url("/jobs/#{job.id}")} Log
+        %a{href: url("/jobs/#{job.id}")}
+          Log
+          %span.glyphicon.glyphicon-menu-right
