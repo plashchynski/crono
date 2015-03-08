@@ -17,3 +17,8 @@
 -----------
 
 - Persist job state to your database.
+
+0.7.0
+-----------
+
+- Added simple Web UI
