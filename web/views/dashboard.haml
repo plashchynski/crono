@@ -12,6 +12,6 @@
       %td= job.job_id
       %td= job.last_performed_at || "—"
       %td
-        %a{href: url("/jobs/#{job.id}")}
+        %a{href: url("/job/#{job.id}")}
           Log
           %span.glyphicon.glyphicon-menu-right
