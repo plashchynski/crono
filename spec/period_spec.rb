@@ -49,7 +49,7 @@ describe Crono::Period do
         time = 10.minutes.from_now
         at = {hour: time.hour, min: time.min}
         @period = Crono::Period.new(2.day, at: at)
-        expect(@period.next).to be_eql(Time.now.change(at))
+        expect(@period.next.utc.to_s).to be_eql(Time.now.change(at).utc.to_s)
       end
     end
   end

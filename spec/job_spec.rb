@@ -21,11 +21,12 @@ describe Crono::Job do
   end
 
   describe "#perform" do
+    after { job.send(:model).destroy }
+
     it "should run performer in separate thread" do
       expect(job).to receive(:save)
       thread = job.perform.join
       expect(thread).to be_stop
-      job.send(:model).destroy
     end
 
     it "should save performin errors to log" do
@@ -33,6 +34,16 @@ describe Crono::Job do
       expect(thread).to be_stop
       saved_log = Crono::CronoJob.find_by(job_id: failing_job.job_id).log
       expect(saved_log).to include "Some error"
+    end
+
+    it "should set Job#healthy to true if perform ok" do
+      thread = job.perform.join
+      expect(job.healthy).to be true
+    end
+
+    it "should set Job#healthy to false if perform with error" do
+      thread = failing_job.perform.join
+      expect(failing_job.healthy).to be false
     end
   end
 
@@ -51,9 +62,11 @@ describe Crono::Job do
 
     it "should update saved job" do
       job.last_performed_at = Time.now
+      job.healthy = true
       job.save
       @crono_job = Crono::CronoJob.find_by(job_id: job.job_id)
       expect(@crono_job.last_performed_at.utc.to_s).to be_eql job.last_performed_at.utc.to_s
+      expect(@crono_job.healthy).to be true
     end
 
     it "should save and truncate job log" do

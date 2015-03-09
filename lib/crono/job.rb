@@ -10,6 +10,7 @@ module Crono
     attr_accessor :last_performed_at
     attr_accessor :job_log
     attr_accessor :job_logger
+    attr_accessor :healthy
 
     def initialize(performer, period)
       self.performer, self.period = performer, period
@@ -41,7 +42,9 @@ module Crono
         rescue Exception => e
           log "Finished #{performer} in %.2f seconds with error: #{e.message}" % (Time.now - last_performed_at)
           log e.backtrace.join("\n")
+          self.healthy = false
         else
+          self.healthy = true
           log "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
         ensure
           save
@@ -54,7 +57,7 @@ module Crono
         log = model.reload.log || ""
         log << job_log.string
         job_log.truncate(job_log.rewind)
-        model.update(last_performed_at: last_performed_at, log: log)
+        model.update(last_performed_at: last_performed_at, log: log, healthy: healthy)
       end
     end
 
