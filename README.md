@@ -9,11 +9,12 @@ Crono — Job scheduler for Rails
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails.
 
 
-## The Idea
+## The Purpose
 
-Currently there is no such thing as Ruby Cron for Rails. Well, there's [Whenever](https://github.com/javan/whenever) but it works on top of Unix Cron, so you have no total control of it from Ruby. Crono is pure Ruby. It doesn't use Unix Cron and other platform-dependent things. So you can use it on all platforms supported by Ruby. It persists job state to your database using Active Record. You have full control of jobs performing process. You have Ruby code, so you can understand and modify it to fit your needs.
+Currently there is no such thing as Ruby Cron for Rails. Well, there's [Whenever](https://github.com/javan/whenever) but it works on top of Unix Cron, so you haven't control of it from Ruby. Crono is pure Ruby. It doesn't use Unix Cron and other platform-dependent things. So you can use it on all platforms supported by Ruby. It persists job states to your database using Active Record. You have full control of jobs performing process. It's Ruby, so you can understand and modify it to fit your needs.
 
 ![Web UI](https://github.com/plashchynski/crono/raw/master/examples/crono_web_ui.png)
+
 
 ## Requirements
 
@@ -109,6 +110,7 @@ Usage: crono [options]
     -e, --environment ENV            Application environment (Default: development)
 ```
 
+
 ## Web UI
 
 Crono comes with a Sinatra application that can display the current state of Crono jobs.  
@@ -130,6 +132,7 @@ Rails.application.routes.draw do
 ```
 
 Access management and other questions described in the [wiki](https://github.com/plashchynski/crono/wiki/Web-UI).
+
 
 ## Capistrano
 
