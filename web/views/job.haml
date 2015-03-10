@@ -5,4 +5,9 @@
 
 %h2
   "#{@job.job_id}" Log:
+
+- if @job.healthy == false
+  .alert.alert-danger{role: "alert"}
+    An error occurs during the last execution of this job. Check the log below for details.
+
 %pre= @job.log

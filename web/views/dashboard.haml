@@ -7,10 +7,15 @@
     %th Job
     %th Last performed at
     %th
+    %th
   - for job in @jobs
     %tr
       %td= job.job_id
       %td= job.last_performed_at || "—"
+      %td
+        - if job.healthy == false
+          %a{href: url("/job/#{job.id}")}
+            %span.label.label-danger Error
       %td
         %a{href: url("/job/#{job.id}")}
           Log
