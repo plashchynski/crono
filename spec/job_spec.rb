@@ -94,8 +94,8 @@ describe Crono::Job do
   describe "#log" do
     it "should write log messages to both common and job log" do
       message = "Test message"
-      expect(job.logger).to receive(:info).with(message)
-      expect(job.job_logger).to receive(:info).with(message)
+      expect(job.logger).to receive(:log).with(Logger::INFO, message)
+      expect(job.job_logger).to receive(:log).with(Logger::INFO, message)
       job.send(:log, message)
     end
 
@@ -103,6 +103,14 @@ describe Crono::Job do
       message = "Test message"
       job.send(:log, message)
       expect(job.job_log.string).to include(message)
+    end
+  end
+
+  describe "#log_error" do
+    it "should call log with ERROR severity" do
+      message = "Test message"
+      expect(job).to receive(:log).with(message, Logger::ERROR)
+      job.send(:log_error, message)
     end
   end
 end

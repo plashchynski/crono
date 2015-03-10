@@ -52,8 +52,8 @@ module Crono
       begin
         performer.new.perform
       rescue Exception => e
-        log "Finished #{performer} in %.2f seconds with error: #{e.message}" % (Time.now - last_performed_at)
-        log e.backtrace.join("\n")
+        log_error "Finished #{performer} in %.2f seconds with error: #{e.message}" % (Time.now - last_performed_at)
+        log_error e.backtrace.join("\n")
         self.healthy = false
       else
         self.healthy = true
@@ -63,10 +63,14 @@ module Crono
       end
     end
 
-    def log(message)
+    def log_error(message)
+      log(message, Logger::ERROR)
+    end
+
+    def log(message, severity = Logger::INFO)
       @semaphore.synchronize do
-        logger.info message
-        job_logger.info message
+        logger.log severity, message
+        job_logger.log severity, message
       end
     end
 
