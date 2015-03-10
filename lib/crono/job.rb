@@ -5,12 +5,7 @@ module Crono
   class Job
     include Logging
 
-    attr_accessor :performer
-    attr_accessor :period
-    attr_accessor :last_performed_at
-    attr_accessor :job_log
-    attr_accessor :job_logger
-    attr_accessor :healthy
+    attr_accessor :performer, :period, :last_performed_at, :job_log, :job_logger, :healthy
 
     def initialize(performer, period)
       self.performer, self.period = performer, period

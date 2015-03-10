@@ -4,11 +4,7 @@ module Crono
     LOGFILE   = "log/crono.log"
     PIDFILE   = "tmp/pids/crono.pid"
 
-    attr_accessor :cronotab
-    attr_accessor :logfile
-    attr_accessor :pidfile
-    attr_accessor :daemonize
-    attr_accessor :environment
+    attr_accessor :cronotab, :logfile, :pidfile, :daemonize, :environment
 
     def initialize
       self.cronotab = CRONOTAB
