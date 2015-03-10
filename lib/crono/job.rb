@@ -31,20 +31,7 @@ module Crono
       log "Perform #{performer}"
       self.last_performed_at = Time.now
 
-      Thread.new do
-        begin
-          performer.new.perform
-        rescue Exception => e
-          log "Finished #{performer} in %.2f seconds with error: #{e.message}" % (Time.now - last_performed_at)
-          log e.backtrace.join("\n")
-          self.healthy = false
-        else
-          self.healthy = true
-          log "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
-        ensure
-          save
-        end
-      end
+      Thread.new { perform_job }
     end
 
     def save
@@ -61,6 +48,21 @@ module Crono
     end
 
   private
+    def perform_job
+      begin
+        performer.new.perform
+      rescue Exception => e
+        log "Finished #{performer} in %.2f seconds with error: #{e.message}" % (Time.now - last_performed_at)
+        log e.backtrace.join("\n")
+        self.healthy = false
+      else
+        self.healthy = true
+        log "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
+      ensure
+        save
+      end
+    end
+
     def log(message)
       @semaphore.synchronize do
         logger.info message
