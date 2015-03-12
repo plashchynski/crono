@@ -74,7 +74,7 @@ end
 
 #### Job Schedule
 
-The schedule described in the configuration file `config/cronotab.rb`, that created using `crono:install` or manually. The semantic is pretty straightforward:
+Schedule list is defined in the file `config/cronotab.rb`, that created using `crono:install`. The semantic is pretty straightforward:
 
 ```ruby
 # config/cronotab.rb
