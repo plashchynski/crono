@@ -27,7 +27,7 @@ Other versions are untested but might work fine.
 Add the following line to your application's Gemfile:
 
 ```ruby
-gem 'crono', require: false
+gem 'crono'
 ```
 
 Run the `bundle` command to install it.  
@@ -124,8 +124,6 @@ gem 'sinatra', require: nil
 Add the following to your `config/routes.rb`:
 
 ```ruby
-require 'crono/web'
-
 Rails.application.routes.draw do
     mount Crono::Web, at: '/crono'
     ...
