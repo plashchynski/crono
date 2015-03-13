@@ -1,4 +1,4 @@
-# cronotab.rb — Crono configuration file
+# cronotab.rb - Crono configuration file
 #
 # Here you can specify periodic jobs and schedule.
 # You can use ActiveJob's jobs from `app/jobs/`
@@ -7,9 +7,8 @@
 #
 class TestJob
   def perform
-    puts "Test!"
+    puts 'Test!'
   end
 end
 
-Crono.perform(TestJob).every 2.days, at: "15:30"
-
+Crono.perform(TestJob).every 2.days, at: '15:30'

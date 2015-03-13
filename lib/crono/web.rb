@@ -2,10 +2,11 @@ require 'haml'
 require 'sinatra/base'
 
 module Crono
+  # Web is a Web UI Sinatra app
   class Web < Sinatra::Base
-    set :root, File.expand_path(File.dirname(__FILE__) + "/../../web")
-    set :public_folder, Proc.new { "#{root}/assets" }
-    set :views, Proc.new { "#{root}/views" }
+    set :root, File.expand_path(File.dirname(__FILE__) + '/../../web')
+    set :public_folder, proc { "#{root}/assets" }
+    set :views, proc { "#{root}/views" }
 
     get '/' do
       @jobs = Crono::CronoJob.all

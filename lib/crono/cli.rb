@@ -4,6 +4,7 @@ require 'optparse'
 module Crono
   mattr_accessor :scheduler
 
+  # Crono::CLI - Main class for the crono daemon exacutable `bin/crono`
   class CLI
     include Singleton
     include Logging
@@ -18,12 +19,7 @@ module Crono
     def run
       parse_options(ARGV)
 
-      if config.daemonize
-        set_log_to(config.logfile)
-        daemonize 
-      else
-        set_log_to(STDOUT)
-      end
+      setup_log
 
       write_pid
       load_rails
@@ -33,7 +29,17 @@ module Crono
       start_working_loop
     end
 
-  private
+    private
+
+    def setup_log
+      if config.daemonize
+        self.logifile = config.logfile
+        daemonize
+      else
+        self.logfile = STDOUT
+      end
+    end
+
     def daemonize
       ::Process.daemon(true, true)
 
@@ -42,7 +48,7 @@ module Crono
         io.sync = true
       end
 
-      $stdin.reopen("/dev/null")
+      $stdin.reopen('/dev/null')
     end
 
     def write_pid
@@ -54,16 +60,16 @@ module Crono
       logger.info "Loading Crono #{Crono::VERSION}"
       logger.info "Running in #{RUBY_DESCRIPTION}"
 
-      logger.info "Jobs:"
+      logger.info 'Jobs:'
       Crono.scheduler.jobs.each do |job|
-        logger.info %{"#{job.performer}" with rule "#{job.period.description}" next time will perform at #{job.next}}
+        logger.info %("#{job.performer}" with rule "#{job.period.description}" next time will perform at #{job.next})
       end
     end
 
     def load_rails
       ENV['RACK_ENV'] = ENV['RAILS_ENV'] = config.environment
       require 'rails'
-      require File.expand_path("config/environment.rb")
+      require File.expand_path('config/environment.rb')
       ::Rails.application.eager_load!
       require File.expand_path(config.cronotab)
     end
@@ -75,7 +81,7 @@ module Crono
     end
 
     def start_working_loop
-      while job = Crono.scheduler.next do
+      while (job = Crono.scheduler.next)
         sleep(job.next - Time.now)
         job.perform
       end

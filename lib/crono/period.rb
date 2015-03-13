@@ -1,4 +1,5 @@
 module Crono
+  # Period describe frequency of performing a task
   class Period
     def initialize(period, at: nil)
       @period = period
@@ -17,7 +18,7 @@ module Crono
 
     def description
       desc = "every #{@period.inspect}"
-      desc += " at %.2i:%.2i" % [@at_hour, @at_min] if @at_hour && @at_min
+      desc += format(' at %.2i:%.2i', @at_hour, @at_min) if @at_hour && @at_min
       desc
     end
 
@@ -29,13 +30,14 @@ module Crono
       when Hash
         return at[:hour], at[:min]
       else
-        raise "Unknown 'at' format"
+        fail "Unknown 'at' format"
       end
     end
 
-  private
+    private
+
     def time_atts
-      {hour: @at_hour, min: @at_min}.compact
+      { hour: @at_hour, min: @at_min }.compact
     end
   end
 end

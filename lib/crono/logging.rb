@@ -1,8 +1,9 @@
 module Crono
   mattr_accessor :logger
 
+  # Crono::Logging is a standart Ruby logger wrapper
   module Logging
-    def set_log_to(logfile)
+    def logfile=(logfile)
       Crono.logger = Logger.new(logfile)
     end
 

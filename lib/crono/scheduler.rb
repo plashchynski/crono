@@ -1,4 +1,5 @@
 module Crono
+  # Scheduler is a container for job list and queue
   class Scheduler
     attr_accessor :jobs
 
@@ -15,7 +16,8 @@ module Crono
       queue.first
     end
 
-  private
+    private
+
     def queue
       jobs.sort_by(&:next)
     end

@@ -2,10 +2,12 @@ require 'stringio'
 require 'logger'
 
 module Crono
+  # Crono::Job represents a Crono job
   class Job
     include Logging
 
-    attr_accessor :performer, :period, :last_performed_at, :job_log, :job_logger, :healthy
+    attr_accessor :performer, :period, :last_performed_at, :job_log,
+                  :job_logger, :healthy
 
     def initialize(performer, period)
       self.performer, self.period = performer, period
@@ -36,10 +38,14 @@ module Crono
 
     def save
       @semaphore.synchronize do
-        log = model.reload.log || ""
+        log = model.reload.log || ''
         log << job_log.string
         job_log.truncate(job_log.rewind)
-        model.update(last_performed_at: last_performed_at, log: log, healthy: healthy)
+        model.update(
+          last_performed_at: last_performed_at,
+          log: log,
+          healthy: healthy
+        )
       end
     end
 
@@ -47,20 +53,21 @@ module Crono
       self.last_performed_at = model.last_performed_at
     end
 
-  private
+    private
+
     def perform_job
-      begin
-        performer.new.perform
-      rescue Exception => e
-        log_error "Finished #{performer} in %.2f seconds with error: #{e.message}" % (Time.now - last_performed_at)
-        log_error e.backtrace.join("\n")
-        self.healthy = false
-      else
-        self.healthy = true
-        log "Finished #{performer} in %.2f seconds" % (Time.now - last_performed_at)
-      ensure
-        save
-      end
+      performer.new.perform
+      finished_time_sec = format('%.2f', Time.now - last_performed_at)
+    rescue StandardError => e
+      log_error "Finished #{performer} in #{finished_time_sec} seconds"\
+                "with error: #{e.message}"
+      log_error e.backtrace.join("\n")
+      self.healthy = false
+    else
+      self.healthy = true
+      log "Finished #{performer} in #{finished_time_sec} seconds"
+    ensure
+      save
     end
 
     def log_error(message)
