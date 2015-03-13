@@ -1,5 +1,6 @@
 require 'haml'
 require 'sinatra/base'
+require 'crono'
 
 module Crono
   # Web is a Web UI Sinatra app
