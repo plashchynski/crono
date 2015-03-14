@@ -8,15 +8,15 @@
     %th Last performed at
     %th
     %th
-  - for job in @jobs
+  - @jobs.each do |job|
     %tr
       %td= job.job_id
-      %td= job.last_performed_at || "—"
+      %td= job.last_performed_at || '-'
       %td
         - if job.healthy == false
-          %a{href: url("/job/#{job.id}")}
+          %a{ href: url("/job/#{job.id}") }
             %span.label.label-danger Error
       %td
-        %a{href: url("/job/#{job.id}")}
+        %a{ href: url("/job/#{job.id}") }
           Log
           %span.glyphicon.glyphicon-menu-right

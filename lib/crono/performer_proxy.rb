@@ -1,5 +1,5 @@
 module Crono
-  # PerformerProxy is a proxy used in cronotab.rb semantic
+  # Crono::PerformerProxy is a proxy used in cronotab.rb semantic
   class PerformerProxy
     def initialize(performer, scheduler)
       @performer = performer

@@ -4,6 +4,7 @@ require 'rails/generators/active_record'
 
 module Crono
   module Generators
+    # rails generate crono:install
     class InstallGenerator < ::Rails::Generators::Base
       include Rails::Generators::Migration
 
@@ -19,7 +20,8 @@ module Crono
       end
 
       def create_migrations
-        migration_template 'migrations/create_crono_jobs.rb', 'db/migrate/create_crono_jobs.rb'
+        migration_template 'migrations/create_crono_jobs.rb',
+                           'db/migrate/create_crono_jobs.rb'
       end
     end
   end

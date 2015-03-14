@@ -1,13 +1,14 @@
 %ol.breadcrumb
   %li
-    %a{href: url("/")} Home
+    %a{ href: url('/') } Home
   %li.active= @job.job_id
 
 %h2
   "#{@job.job_id}" Log:
 
 - if @job.healthy == false
-  .alert.alert-danger{role: "alert"}
-    An error occurs during the last execution of this job. Check the log below for details.
+  .alert.alert-danger{ role: 'alert' }
+    An error occurs during the last execution of this job.
+    Check the log below for details.
 
 %pre= @job.log
