@@ -4,7 +4,7 @@ require 'optparse'
 module Crono
   mattr_accessor :scheduler
 
-  # Crono::CLI - Main class for the crono daemon exacutable `bin/crono`
+  # Crono::CLI - The main class for the crono daemon exacutable `bin/crono`
   class CLI
     include Singleton
     include Logging
@@ -62,7 +62,8 @@ module Crono
 
       logger.info 'Jobs:'
       Crono.scheduler.jobs.each do |job|
-        logger.info %("#{job.performer}" with rule "#{job.period.description}" next time will perform at #{job.next})
+        logger.info "'#{job.performer}' with rule '#{job.period.description}'"\
+                    "next time will perform at #{job.next}"
       end
     end
 
@@ -75,9 +76,8 @@ module Crono
     end
 
     def check_jobs
-      if Crono.scheduler.jobs.empty?
-        logger.error "You have no jobs defined in you cronotab file #{config.cronotab}"
-      end
+      return if Crono.scheduler.jobs.present?
+      logger.error "You have no jobs in you cronotab file #{config.cronotab}"
     end
 
     def start_working_loop
