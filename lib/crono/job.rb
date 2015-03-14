@@ -38,14 +38,8 @@ module Crono
 
     def save
       @semaphore.synchronize do
-        log = model.reload.log || ''
-        log << job_log.string
-        job_log.truncate(job_log.rewind)
-        model.update(
-          last_performed_at: last_performed_at,
-          log: log,
-          healthy: healthy
-        )
+        update_model
+        clear_job_log
       end
     end
 
@@ -55,19 +49,38 @@ module Crono
 
     private
 
+    def clear_job_log
+      job_log.truncate(job_log.rewind)
+    end
+
+    def update_model
+      saved_log = model.reload.log || ''
+      log_to_save = saved_log + job_log.string
+      model.update(last_performed_at: last_performed_at, log: log_to_save,
+                   healthy: healthy)
+    end
+
     def perform_job
       performer.new.perform
       finished_time_sec = format('%.2f', Time.now - last_performed_at)
     rescue StandardError => e
-      log_error "Finished #{performer} in #{finished_time_sec} seconds"\
-                "with error: #{e.message}"
-      log_error e.backtrace.join("\n")
-      self.healthy = false
+      handle_job_fail(e, finished_time_sec)
     else
-      self.healthy = true
-      log "Finished #{performer} in #{finished_time_sec} seconds"
+      handle_job_success(finished_time_sec)
     ensure
       save
+    end
+
+    def handle_job_fail(exception, finished_time_sec)
+      self.healthy = false
+      log_error "Finished #{performer} in #{finished_time_sec} seconds"\
+                "with error: #{exception.message}"
+      log_error exception.backtrace.join("\n")
+    end
+
+    def handle_job_success(finished_time_sec)
+      self.healthy = true
+      log "Finished #{performer} in #{finished_time_sec} seconds"
     end
 
     def log_error(message)
