@@ -20,6 +20,7 @@ module Crono
     def description
       desc = "every #{@period.inspect}"
       desc += format(' at %.2i:%.2i', @at_hour, @at_min) if @at_hour && @at_min
+      desc += " on #{DAYS[@on].capitalize}" if @on
       desc
     end
 

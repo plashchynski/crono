@@ -9,8 +9,8 @@ describe Crono::Period do
 
   describe '#description' do
     it 'should return period description' do
-      @period = Crono::Period.new(2.day, at: '15:20')
-      expect(@period.description).to be_eql('every 2 days at 15:20')
+      @period = Crono::Period.new(1.week, on: :monday, at: '15:20')
+      expect(@period.description).to be_eql('every 7 days at 15:20 on Monday')
     end
   end
 
