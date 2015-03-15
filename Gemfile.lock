@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    crono (0.7.0)
+    crono (0.8.0)
       activejob (~> 4.0)
       activerecord (~> 4.0)
       activesupport (~> 4.0)
@@ -66,7 +66,7 @@ GEM
       tilt (~> 1.3, >= 1.3.4)
     slop (3.6.0)
     sqlite3 (1.3.10)
-    thread_safe (0.3.4)
+    thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.7.3)
     tzinfo (1.2.2)
