@@ -78,14 +78,15 @@ Schedule list is defined in the file `config/cronotab.rb`, that created using `c
 
 ```ruby
 # config/cronotab.rb
-Crono.perform(TestJob).every 2.days, at: "15:30"
+Crono.perform(TestJob).every 2.days, at: {hour: 15, min: 30}
+Crono.perform(TestJob).every 1.week, on: :monday, at: "15:30"
 ```
 
-You can schedule one job a few times, if you want a job to be performed a few times a day:
+You can schedule one job a few times, if you want the job to be performed a few times a day or a week:
 
 ```ruby
-Crono.perform(TestJob).every 1.day, at: "00:00"
-Crono.perform(TestJob).every 1.day, at: "12:00"
+Crono.perform(TestJob).every 1.week, on: :monday
+Crono.perform(TestJob).every 1.week, on: :thursday
 ```
 
 The `at` can be a Hash:
