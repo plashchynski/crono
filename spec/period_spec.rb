@@ -15,6 +15,43 @@ describe Crono::Period do
   end
 
   describe '#next' do
+    context 'in weakly basis' do
+      it "should raise error if 'on' is wrong" do
+        expect { @period = Crono::Period.new(7.days, on: :bad_day) }
+          .to raise_error("Wrong 'on' day")
+      end
+
+      it 'should raise error when period is less than 1 week' do
+        expect { @period = Crono::Period.new(6.days, on: :monday) }
+          .to raise_error("period should be at least 1 week to use 'on'")
+      end
+
+      it "should return a 'on' day" do
+        @period = Crono::Period.new(1.week, on: :thursday, at: '15:30')
+        current_week = Time.now.beginning_of_week
+        last_run_time = current_week.advance(days: 1) # last run on the tuesday
+        next_run_at = Time.now.next_week.advance(days: 3)
+                      .change(hour: 15, min: 30)
+        expect(@period.next(since: last_run_time)).to be_eql(next_run_at)
+      end
+
+      it "should return a next week day 'on'" do
+        @period = Crono::Period.new(1.week, on: :thursday)
+        Timecop.freeze(Time.now.beginning_of_week.advance(days: 4)) do
+          expect(@period.next).to be_eql(Time.now.next_week.advance(days: 3))
+        end
+      end
+
+      it 'should return a current week day on the first run if not too late' do
+        @period = Crono::Period.new(7.days, on: :tuesday)
+        beginning_of_the_week = Time.now.beginning_of_week
+        tuesday = beginning_of_the_week.advance(days: 1)
+        Timecop.freeze(beginning_of_the_week) do
+          expect(@period.next).to be_eql(tuesday)
+        end
+      end
+    end
+
     context 'in daily basis' do
       it 'should return the time 2 days from now' do
         @period = Crono::Period.new(2.day)
