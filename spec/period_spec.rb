@@ -78,6 +78,12 @@ describe Crono::Period do
         }.to raise_error("Unknown 'at' format")
       end
 
+      it 'should raise error when period is less than 1 day' do
+        expect {
+          Crono::Period.new(5.hours, at: '15:30')
+        }.to raise_error("period should be at least 1 day to use 'at'")
+      end
+
       it 'should return time in relation to last time' do
         @period = Crono::Period.new(2.day)
         expect(@period.next(since: 1.day.ago)).to be_eql(1.day.from_now)
