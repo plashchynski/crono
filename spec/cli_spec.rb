@@ -19,10 +19,6 @@ describe Crono::CLI do
     end
   end
 
-  describe '#start_working_loop' do
-    it 'should start working loop'
-  end
-
   describe '#parse_options' do
     it 'should set cronotab' do
       cli.send(:parse_options, ['--cronotab', '/tmp/cronotab.rb'])
