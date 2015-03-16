@@ -2,8 +2,6 @@ require 'crono'
 require 'optparse'
 
 module Crono
-  mattr_accessor :scheduler
-
   # Crono::CLI - The main class for the crono daemon exacutable `bin/crono`
   class CLI
     include Singleton

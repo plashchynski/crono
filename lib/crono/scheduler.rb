@@ -22,4 +22,6 @@ module Crono
       jobs.sort_by(&:next)
     end
   end
+
+  mattr_accessor :scheduler
 end
