@@ -6,6 +6,7 @@ describe Crono::Web do
   let(:app) { Crono::Web }
 
   before do
+    Crono::CronoJob.destroy_all
     @test_job_id = 'Perform TestJob every 5 seconds'
     @test_job_log = 'All runs ok'
     @test_job = Crono::CronoJob.create!(
