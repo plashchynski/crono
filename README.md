@@ -72,6 +72,8 @@ class TestJob # This is not an Active Job job, but pretty legal Crono job.
 end
 ```
 
+_Please note that crono uses threads, so your code should be thread-safe_
+
 #### Job Schedule
 
 Schedule list is defined in the file `config/cronotab.rb`, that created using `crono:install`. The semantic is pretty straightforward:
