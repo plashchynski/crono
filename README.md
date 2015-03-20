@@ -1,6 +1,8 @@
 Crono — Job scheduler for Rails
 ------------------------
-[![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
+[![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)Here's an example of a test job:
+
+
 [![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
 [![Code Climate](https://codeclimate.com/github/plashchynski/crono/badges/gpa.svg)](https://codeclimate.com/github/plashchynski/crono)
 [![security](https://hakiri.io/github/plashchynski/crono/master.svg)](https://hakiri.io/github/plashchynski/crono/master)
@@ -49,7 +51,7 @@ Now you are ready to move forward to create a job and schedule it.
 
 Crono can use Active Job jobs from `app/jobs/`. The only requirements is that the `perform` method should take no arguments.
 
-Here's an example of a test job:
+Here's an example of a job:
 
 ```ruby
 # app/jobs/test_job.rb
