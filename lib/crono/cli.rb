@@ -31,7 +31,7 @@ module Crono
 
     def setup_log
       if config.daemonize
-        self.logifile = config.logfile
+        self.logfile = config.logfile
         daemonize
       else
         self.logfile = STDOUT
