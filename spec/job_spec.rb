@@ -1,16 +1,5 @@
 require 'spec_helper'
 
-class TestJob
-  def perform
-  end
-end
-
-class TestFailingJob
-  def perform
-    fail 'Some error'
-  end
-end
-
 describe Crono::Job do
   let(:period) { Crono::Period.new(2.day) }
   let(:job) { Crono::Job.new(TestJob, period) }

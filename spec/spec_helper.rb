@@ -13,3 +13,14 @@ ActiveRecord::Base.establish_connection(
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 CreateCronoJobs.up
+
+class TestJob
+  def perform
+  end
+end
+
+class TestFailingJob
+  def perform
+    fail 'Some error'
+  end
+end

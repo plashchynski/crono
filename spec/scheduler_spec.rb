@@ -1,10 +1,5 @@
 require 'spec_helper'
 
-class TestJob
-  def perform
-  end
-end
-
 describe Crono::Scheduler do
   before(:each) do
     @scheduler = Crono::Scheduler.new

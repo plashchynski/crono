@@ -1,11 +1,6 @@
 require 'spec_helper'
 require 'crono/cli'
 
-class TestJob
-  def perform
-  end
-end
-
 describe Crono::CLI do
   let(:cli) { Crono::CLI.instance }
 
