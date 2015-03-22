@@ -26,14 +26,22 @@ describe Crono::Job do
       expect(saved_log).to include 'Some error'
     end
 
-    it 'should set Job#healthy to true if perform ok' do
+    xit 'should set Job#healthy to true if perform ok' do
+      class TestJob
+        def perform
+          @_crono_job
+        end
+      end
       job.perform.join
-      expect(job.healthy).to be true
     end
 
     it 'should set Job#healthy to false if perform with error' do
       failing_job.perform.join
       expect(failing_job.healthy).to be false
+    end
+
+    it 'should set @_crono_job variable to instance' do
+      job.perform
     end
   end
 
