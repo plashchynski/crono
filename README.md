@@ -120,7 +120,7 @@ Crono comes with a Sinatra application that can display the current state of Cro
 Add `sinatra` and `haml` to your Gemfile  
 
 ```ruby
-gam 'haml'
+gem 'haml'
 gem 'sinatra', require: nil
 ```
 
