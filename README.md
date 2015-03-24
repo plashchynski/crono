@@ -1,8 +1,6 @@
 Crono — Job scheduler for Rails
 ------------------------
-[![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)Here's an example of a test job:
-
-
+[![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
 [![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
 [![Code Climate](https://codeclimate.com/github/plashchynski/crono/badges/gpa.svg)](https://codeclimate.com/github/plashchynski/crono)
 [![security](https://hakiri.io/github/plashchynski/crono/master.svg)](https://hakiri.io/github/plashchynski/crono/master)
