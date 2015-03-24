@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    crono (0.8.0)
+    crono (0.8.1)
       activejob (~> 4.0)
       activerecord (~> 4.0)
       activesupport (~> 4.0)
@@ -9,17 +9,17 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activejob (4.2.0)
-      activesupport (= 4.2.0)
+    activejob (4.2.1)
+      activesupport (= 4.2.1)
       globalid (>= 0.3.0)
-    activemodel (4.2.0)
-      activesupport (= 4.2.0)
+    activemodel (4.2.1)
+      activesupport (= 4.2.1)
       builder (~> 3.1)
-    activerecord (4.2.0)
-      activemodel (= 4.2.0)
-      activesupport (= 4.2.0)
+    activerecord (4.2.1)
+      activemodel (= 4.2.1)
+      activesupport (= 4.2.1)
       arel (~> 6.0)
-    activesupport (4.2.0)
+    activesupport (4.2.1)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
