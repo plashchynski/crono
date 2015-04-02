@@ -10,9 +10,12 @@ module Crono
     def initialize
       self.cronotab = CRONOTAB
       self.logfile  = LOGFILE
-      self.pidfile  = PIDFILE
       self.daemonize = false
       self.environment = ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'development'
+    end
+
+    def pidfile
+      @pidfile || (daemonize ? PIDFILE : nil)
     end
   end
 end
