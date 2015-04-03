@@ -72,6 +72,33 @@ class TestJob # This is not an Active Job job, but pretty legal Crono job.
 end
 ```
 
+Here's an example of a Rake Task within a job:
+
+```ruby
+# config/cronotab.rb
+require 'rake'
+# Be sure to change AppName to your application name!
+AppName::Application.load_tasks
+
+class Test
+  def perform
+    Rake::Task['crono:hello'].invoke
+  end
+end
+
+Crono.perform(Test).every 5.seconds
+```
+With the rake task of:
+```Ruby
+#lib/tasks/test.rake
+namespace :crono do
+  desc 'Update all tables'
+  task :hello => :environment do
+    puts "hello"
+  end
+end
+```
+
 _Please note that crono uses threads, so your code should be thread-safe_
 
 #### Job Schedule
