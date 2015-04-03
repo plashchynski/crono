@@ -6,7 +6,7 @@
   %tr
     %th Job
     %th Last performed at
-    %th
+    %th Status
     %th
   - @jobs.each do |job|
     %tr
@@ -16,6 +16,12 @@
         - if job.healthy == false
           %a{ href: url("/job/#{job.id}") }
             %span.label.label-danger Error
+        - if job.healthy == true
+          %a{ href: url("/job/#{job.id}") }
+            %span.label.label-success Success
+        - else
+          %a{ href: url("/job/#{job.id}") }
+            %span.label.label-default Pending
       %td
         %a{ href: url("/job/#{job.id}") }
           Log
