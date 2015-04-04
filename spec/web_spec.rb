@@ -29,6 +29,18 @@ describe Crono::Web do
       get '/'
       expect(last_response.body).to include 'Error'
     end
+
+    it 'should show a success mark when a job is healthy' do
+      @test_job.update(healthy: true)
+      get '/'
+      expect(last_response.body).to include 'Success'
+    end
+
+    it 'should show a pending mark when a job is pending' do
+      @test_job.update(healthy: nil)
+      get '/'
+      expect(last_response.body).to include 'Pending'
+    end
   end
 
   describe '/job/:id' do
