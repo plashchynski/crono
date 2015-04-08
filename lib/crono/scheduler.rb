@@ -12,14 +12,8 @@ module Crono
       jobs << job
     end
 
-    def next
-      queue.first
-    end
-
-    private
-
-    def queue
-      jobs.sort_by(&:next)
+    def next_jobs
+      jobs.group_by(&:next).sort_by {|time,_| time }.first
     end
   end
 

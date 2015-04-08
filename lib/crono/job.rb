@@ -17,8 +17,7 @@ module Crono
     end
 
     def next
-      next_time = period.next(since: last_performed_at)
-      next_time.past? ? period.next : next_time
+      period.next(since: last_performed_at)
     end
 
     def description

@@ -79,9 +79,10 @@ module Crono
     end
 
     def start_working_loop
-      while (job = Crono.scheduler.next)
-        sleep(job.next - Time.now)
-        job.perform
+      while true
+        next_time, jobs = Crono.scheduler.next_jobs
+        sleep(next_time - Time.now)
+        jobs.each(&:perform)
       end
     end
 

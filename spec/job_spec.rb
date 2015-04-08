@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe Crono::Job do
-  let(:period) { Crono::Period.new(2.day) }
+  let(:period) { Crono::Period.new(2.day, at: '15:00') }
   let(:job) { Crono::Job.new(TestJob, period) }
   let(:failing_job) { Crono::Job.new(TestFailingJob, period) }
 
   it 'should contain performer and period' do
     expect(job.performer).to be TestJob
     expect(job.period).to be period
+  end
+
+  describe '#next' do
+    it 'should return next performing time according to period' do
+      expect(job.next).to be_eql period.next
+    end
   end
 
   describe '#perform' do
@@ -47,7 +53,7 @@ describe Crono::Job do
 
   describe '#description' do
     it 'should return job identificator' do
-      expect(job.description).to be_eql('Perform TestJob every 2 days')
+      expect(job.description).to be_eql('Perform TestJob every 2 days at 15:00')
     end
   end
 

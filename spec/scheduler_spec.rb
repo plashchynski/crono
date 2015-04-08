@@ -1,27 +1,38 @@
 require 'spec_helper'
 
 describe Crono::Scheduler do
-  before(:each) do
-    @scheduler = Crono::Scheduler.new
-    @jobs = [
-      Crono::Period.new(3.day, at: 10.minutes.from_now.strftime('%H:%M')),
-      Crono::Period.new(1.day, at: 20.minutes.from_now.strftime('%H:%M')),
-      Crono::Period.new(7.day, at: 40.minutes.from_now.strftime('%H:%M'))
-    ].map { |period| Crono::Job.new(TestJob, period) }
-    @scheduler.jobs = @jobs
-  end
+  let(:scheduler) { Crono::Scheduler.new }
 
   describe '#add_job' do
     it 'should call Job#load on Job' do
       @job = Crono::Job.new(TestJob, Crono::Period.new(10.day, at: '04:05'))
       expect(@job).to receive(:load)
-      @scheduler.add_job(@job)
+      scheduler.add_job(@job)
     end
   end
 
-  describe '#next' do
+  describe '#next_jobs' do
     it 'should return next job in schedule' do
-      expect(@scheduler.next).to be @jobs[0]
+      scheduler.jobs = jobs = [
+        Crono::Period.new(3.days, at: 10.minutes.from_now.strftime('%H:%M')),
+        Crono::Period.new(1.day, at: 20.minutes.from_now.strftime('%H:%M')),
+        Crono::Period.new(7.days, at: 40.minutes.from_now.strftime('%H:%M'))
+      ].map { |period| Crono::Job.new(TestJob, period) }
+
+      time, jobs = scheduler.next_jobs
+      expect(jobs).to be_eql [jobs[0]]
+    end
+
+    it 'should return an array of jobs scheduled at same time' do
+      time = 5.minutes.from_now
+      scheduler.jobs = jobs = [
+        Crono::Period.new(1.day, at: time.strftime('%H:%M')),
+        Crono::Period.new(1.day, at: time.strftime('%H:%M')),
+        Crono::Period.new(1.day, at: 10.minutes.from_now.strftime('%H:%M'))
+      ].map { |period| Crono::Job.new(TestJob, period) }
+
+      time, jobs = scheduler.next_jobs
+      expect(jobs).to be_eql [jobs[0], jobs[1]]
     end
   end
 end
