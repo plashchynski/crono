@@ -50,6 +50,7 @@ module Crono
     end
 
     def write_pid
+      return unless config.pidfile
       pidfile = File.expand_path(config.pidfile)
       File.write(pidfile, ::Process.pid)
     end
