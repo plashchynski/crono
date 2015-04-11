@@ -3,23 +3,29 @@
   %head
     %meta{ charset: 'utf-8' }
     %meta{ 'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
-    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' }
 
     %title Crono Dashboard
 
-    %link{ href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css', rel: 'stylesheet' }
-    %link{ href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css', rel: 'stylesheet' }
+    %link{ href: 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css', rel: 'stylesheet', media: 'screen,projection' }
     %link{ href: "#{env['SCRIPT_NAME']}/custom.css", rel: 'stylesheet' }
 
-  %body
-    %br
-    %br
-    .container
-      .page-header
-        %h1
+  %body.blue-grey.darken-2
+    %header
+      .container.blue-grey.white-text
+        %h1 Crono Dashboard
+
+    %main
+      .container.blue-grey.lighten-4.grey-text.text-darken-4
+        = yield
+
+    %footer.page-footer.blue-grey.darken-2
+      .footer-copyright.blue-grey.darken-2
+        .container.blue-grey.lighten-4.grey-text.text-darken-4
           Crono #{Crono::VERSION}
-          %small Dashboard
-      = yield
+
+          %a.right{ href: 'https://github.com/plashchynski/crono', target: '_blank' } Documentation
+
 
     %script{ src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js' }
-    %script{ src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js' }
+    %script{ src: 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js' }
