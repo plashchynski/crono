@@ -1,7 +1,6 @@
 %a{ href: url('/') } << Back to Home
 
-%h2
-  "#{@job.job_id}" Log:
+%h4 "#{@job.job_id}" Log:
 
 - if @job.healthy == false
   .alert.alert-danger{ role: 'alert' }

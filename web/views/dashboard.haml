@@ -1,4 +1,4 @@
-%h3 Running Jobs
+%h2 Running Jobs
 %table.bordered#job_list
   %tr
     %th Job
@@ -12,13 +12,19 @@
       %td
         - if job.healthy == false
           %a{ href: url("/job/#{job.id}") }
-            %span.label.label-danger Error
-        - if job.healthy == true
+            %span.red-text{ title: 'There were problems with this job. Follow the link to check the log.' }
+              %i.mdi-alert-warning
+              Error
+        - elsif job.healthy == true
           %a{ href: url("/job/#{job.id}") }
-            %span.label.label-success Success
+            %span.green-text.darken-3{ title: 'This job was performed successfully.' }
+              %i.mdi-action-done
+              Success
         - else
           %a{ href: url("/job/#{job.id}") }
-            %span.label.label-default Pending
+            %span.grey-text.darken-3{ title: 'This job has never been performed yet.' }
+              %i.mdi-device-access-time
+              Pending
       %td
         %a{ href: url("/job/#{job.id}") }
           Log
