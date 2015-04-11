@@ -1,4 +1,8 @@
-pkg/*
-*.gem
-.bundle
-tmp/*.sqlite3
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
