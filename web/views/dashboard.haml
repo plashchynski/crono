@@ -8,24 +8,25 @@
   - @jobs.each do |job|
     %tr
       %td= job.job_id
-      %td= job.last_performed_at || '-'
+      %td= job.last_performed_at || 'Never performed yet'
       %td
-        - if job.healthy == false
-          %a{ href: url("/job/#{job.id}") }
-            %span.red-text{ title: 'There were problems with this job. Follow the link to check the log.' }
-              %i.mdi-alert-warning
-              Error
-        - elsif job.healthy == true
+        - if job.last_performed_at.nil?
+          %span.grey-text.darken-3{ title: 'This job has never been performed yet.' }
+            %i.mdi-device-access-time
+            Pending
+        - elsif job.healthy
           %a{ href: url("/job/#{job.id}") }
             %span.green-text.darken-3{ title: 'This job was performed successfully.' }
               %i.mdi-action-done
               Success
         - else
           %a{ href: url("/job/#{job.id}") }
-            %span.grey-text.darken-3{ title: 'This job has never been performed yet.' }
-              %i.mdi-device-access-time
-              Pending
+            %span.red-text{ title: 'There were problems with this job. Follow the link to check the log.' }
+              %i.mdi-alert-warning
+              Error
+
       %td
-        %a{ href: url("/job/#{job.id}") }
-          Log
-          %span.glyphicon.glyphicon-menu-right
+        - if job.last_performed_at
+          %a{ href: url("/job/#{job.id}") }
+            Log
+            %i.mdi-navigation-chevron-right
