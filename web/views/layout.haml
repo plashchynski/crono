@@ -11,18 +11,16 @@
     %link{ href: "#{env['SCRIPT_NAME']}/custom.css", rel: 'stylesheet' }
 
   %body.blue-grey.darken-2
-    %header
-      .container.blue-grey.white-text
-        %h1 Crono Dashboard
+    %nav.container.blue-grey.white-text
+      .nav-wrapper
+        %a.brand-logo{ href: url('/') } Crono Dashboard
 
-    %main
-      .container.blue-grey.lighten-4.grey-text.text-darken-4
-        = yield
+    = yield
 
     %footer.page-footer.blue-grey.darken-2
       .footer-copyright.blue-grey.darken-2
-        .container.blue-grey.lighten-4.grey-text.text-darken-4
-          Crono #{Crono::VERSION}
+        .container.blue-grey.white-text
+          Crono v#{Crono::VERSION}
 
           %a.right{ href: 'https://github.com/plashchynski/crono', target: '_blank' } Documentation
 
