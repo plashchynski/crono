@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    crono (0.8.5.pre)
+    crono (0.8.7.pre)
       activejob (~> 4.0)
       activerecord (~> 4.0)
       activesupport (~> 4.0)
@@ -31,7 +31,7 @@ GEM
       columnize (= 0.9.0)
     columnize (0.9.0)
     diff-lcs (1.2.5)
-    globalid (0.3.3)
+    globalid (0.3.5)
       activesupport (>= 4.1.0)
     haml (4.0.6)
       tilt

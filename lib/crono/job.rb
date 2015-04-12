@@ -60,9 +60,7 @@ module Crono
     end
 
     def perform_job
-      performer_instance = performer.new
-      performer_instance.instance_variable_set(:@_crono_job, self)
-      performer_instance.perform
+      performer.new.perform
       finished_time_sec = format('%.2f', Time.now - last_performed_at)
     rescue StandardError => e
       handle_job_fail(e, finished_time_sec)

@@ -62,7 +62,7 @@ module Crono
       logger.info 'Jobs:'
       Crono.scheduler.jobs.each do |job|
         logger.info "'#{job.performer}' with rule '#{job.period.description}'"\
-                    "next time will perform at #{job.next}"
+                    " next time will perform at #{job.next}"
       end
     end
 
@@ -80,9 +80,9 @@ module Crono
     end
 
     def start_working_loop
-      while true
+      loop do
         next_time, jobs = Crono.scheduler.next_jobs
-        sleep(next_time - Time.now)
+        sleep(next_time - Time.now) if next_time > Time.now
         jobs.each(&:perform)
       end
     end

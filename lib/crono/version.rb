@@ -1,3 +1,3 @@
 module Crono
-  VERSION = '0.8.5.pre'
+  VERSION = '0.8.7.pre'
 end
