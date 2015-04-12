@@ -1,5 +1,5 @@
 module Crono
-  # Period describe frequency of performing a task
+  # Period describe frequency of jobs
   class Period
     DAYS = [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday,
             :sunday]
@@ -14,7 +14,9 @@ module Crono
       return initial_next unless since
       @next = @period.since(since)
       @next = @next.beginning_of_week.advance(days: @on) if @on
-      @next.change(time_atts)
+      @next = @next.change(time_atts)
+      return @next if @next.future?
+      Time.now
     end
 
     def description
