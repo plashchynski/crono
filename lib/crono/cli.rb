@@ -82,7 +82,7 @@ module Crono
     def start_working_loop
       loop do
         next_time, jobs = Crono.scheduler.next_jobs
-        sleep(next_time - Time.now)
+        sleep(next_time - Time.now) if next_time > Time.now
         jobs.each(&:perform)
       end
     end
