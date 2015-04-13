@@ -25,13 +25,13 @@ describe Crono::Web do
     end
 
     it 'should show a error mark when a job is unhealthy' do
-      @test_job.update(healthy: false)
+      @test_job.update(healthy: false, last_performed_at: 10.minutes.ago)
       get '/'
       expect(last_response.body).to include 'Error'
     end
 
     it 'should show a success mark when a job is healthy' do
-      @test_job.update(healthy: true)
+      @test_job.update(healthy: true, last_performed_at: 10.minutes.ago)
       get '/'
       expect(last_response.body).to include 'Success'
     end
