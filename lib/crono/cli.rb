@@ -21,6 +21,7 @@ module Crono
 
       write_pid
       load_rails
+      Cronotab.process(File.expand_path(config.cronotab))
       print_banner
 
       check_jobs
@@ -71,7 +72,6 @@ module Crono
       require 'rails'
       require File.expand_path('config/environment.rb')
       ::Rails.application.eager_load!
-      require File.expand_path(config.cronotab)
     end
 
     def check_jobs
