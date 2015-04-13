@@ -1,12 +1,6 @@
 require 'spec_helper'
 
 describe Crono::Period do
-  around(:each) do |example|
-    Timecop.freeze do
-      example.run
-    end
-  end
-
   describe '#description' do
     it 'should return period description' do
       @period = Crono::Period.new(1.week, on: :monday, at: '15:20')
@@ -55,12 +49,12 @@ describe Crono::Period do
     context 'in daily basis' do
       it "should return Time.now if the next time in past" do
         @period = Crono::Period.new(1.day, at: '06:00')
-        expect(@period.next(since: 2.days.ago)).to be_eql(Time.now)
+        expect(@period.next(since: 2.days.ago).to_s).to be_eql(Time.now.to_s)
       end
 
       it 'should return the time 2 days from now' do
         @period = Crono::Period.new(2.day)
-        expect(@period.next).to be_eql(2.days.from_now)
+        expect(@period.next.to_s).to be_eql(2.days.from_now.to_s)
       end
 
       it "should set time to 'at' time as a string" do
@@ -91,7 +85,7 @@ describe Crono::Period do
 
       it 'should return time in relation to last time' do
         @period = Crono::Period.new(2.days)
-        expect(@period.next(since: 1.day.ago)).to be_eql(1.day.from_now)
+        expect(@period.next(since: 1.day.ago).to_s).to be_eql(1.day.from_now.to_s)
       end
 
       it 'should return today time if it is first run and not too late' do
