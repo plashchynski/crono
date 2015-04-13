@@ -35,16 +35,22 @@ describe Crono::Scheduler do
       expect(jobs).to be_eql [jobs[0], jobs[1]]
     end
 
-    it 'should return an array of jobs scheduled at same time without `at`' do
-      time = 5.minutes.from_now
+    it 'should handle a few jobs scheduled at same time without `at`' do
       scheduler.jobs = jobs = [
         Crono::Period.new(10.seconds),
         Crono::Period.new(10.seconds),
         Crono::Period.new(1.day, at: 10.minutes.from_now.strftime('%H:%M'))
       ].map { |period| Crono::Job.new(TestJob, period) }
 
-      time, jobs = scheduler.next_jobs
-      expect(jobs).to be_eql [jobs[0], jobs[1]]
+      _, next_jobs = scheduler.next_jobs
+      expect(next_jobs).to be_eql [jobs[0]]
+
+      Timecop.travel(4.seconds.from_now)
+      expect(Thread).to receive(:new)
+      jobs[0].perform
+
+      _, next_jobs = scheduler.next_jobs
+      expect(next_jobs).to be_eql [jobs[1]]
     end
   end
 end
