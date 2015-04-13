@@ -10,6 +10,7 @@ describe Crono::CLI do
       expect(cli).to receive(:start_working_loop)
       expect(cli).to receive(:parse_options)
       expect(cli).to receive(:write_pid)
+      expect(Crono::Cronotab).to receive(:process)
       cli.run
     end
   end
