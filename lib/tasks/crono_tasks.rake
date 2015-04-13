@@ -1,7 +1,7 @@
 module Crono
   def self.load_cronotab
     cronotab_path = ENV['CRONOTAB'] || (defined?(Rails) &&
-                      File.join(Rails.root, cronotab_path))
+                      File.join(Rails.root, Config::CRONOTAB))
     fail 'No cronotab defined' unless cronotab_path
     puts "Load cronotab #{cronotab_path}"
     require cronotab_path
