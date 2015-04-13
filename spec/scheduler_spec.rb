@@ -23,11 +23,23 @@ describe Crono::Scheduler do
       expect(jobs).to be_eql [jobs[0]]
     end
 
-    it 'should return an array of jobs scheduled at same time' do
+    it 'should return an array of jobs scheduled at same time with `at`' do
       time = 5.minutes.from_now
       scheduler.jobs = jobs = [
         Crono::Period.new(1.day, at: time.strftime('%H:%M')),
         Crono::Period.new(1.day, at: time.strftime('%H:%M')),
+        Crono::Period.new(1.day, at: 10.minutes.from_now.strftime('%H:%M'))
+      ].map { |period| Crono::Job.new(TestJob, period) }
+
+      time, jobs = scheduler.next_jobs
+      expect(jobs).to be_eql [jobs[0], jobs[1]]
+    end
+
+    it 'should return an array of jobs scheduled at same time without `at`' do
+      time = 5.minutes.from_now
+      scheduler.jobs = jobs = [
+        Crono::Period.new(10.seconds),
+        Crono::Period.new(10.seconds),
         Crono::Period.new(1.day, at: 10.minutes.from_now.strftime('%H:%M'))
       ].map { |period| Crono::Job.new(TestJob, period) }
 
