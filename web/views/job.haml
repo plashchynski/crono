@@ -6,8 +6,10 @@
 
 %main.container.blue-grey.lighten-4.grey-text.text-darken-4
   - if @job.healthy == false
-    .alert.alert-danger{ role: 'alert' }
-      An error occurs during the last execution of this job.
-      Check the log below for details.
+    .row.red-text
+      .s12.center-align
+        %i.mdi-alert-warning
+        An error occurs during the last execution of this job.
+        Check the log below for details.
 
   %pre= @job.log
