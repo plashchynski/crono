@@ -1,3 +1,15 @@
+0.8.9
+-----------
+
+- We moved Web UI to materializecss.com CSS framework
+- We moved from CDN to local assets for Web UI
+- We show current state of a job in Web UI (thanks to @michaelachrisco) https://github.com/plashchynski/crono/issues/16
+- We won't write a pidfile unless daemonized (thanks to @thomasfedb) https://github.com/plashchynski/crono/pull/13
+- Fixed `rake crono:clean` task error
+- Fixed issue when jobs scheduled at same time exclude each other https://github.com/plashchynski/crono/issues/19
+- Fixed issue with a daemon crash due to `time interval must be positive` error
+
+
 0.8.0
 -----------
 
