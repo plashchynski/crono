@@ -2,16 +2,12 @@ PATH
   remote: .
   specs:
     crono (0.8.9)
-      activejob (~> 4.0)
       activerecord (~> 4.0)
       activesupport (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activejob (4.2.1)
-      activesupport (= 4.2.1)
-      globalid (>= 0.3.0)
     activemodel (4.2.1)
       activesupport (= 4.2.1)
       builder (~> 3.1)
@@ -31,13 +27,11 @@ GEM
       columnize (= 0.9.0)
     columnize (0.9.0)
     diff-lcs (1.2.5)
-    globalid (0.3.5)
-      activesupport (>= 4.1.0)
     haml (4.0.6)
       tilt
     i18n (0.7.0)
     json (1.8.2)
-    minitest (5.5.1)
+    minitest (5.6.1)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
