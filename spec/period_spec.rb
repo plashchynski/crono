@@ -52,7 +52,7 @@ describe Crono::Period do
         expect(@period.next(since: 2.days.ago).to_s).to be_eql(Time.now.to_s)
       end
 
-      it 'should return the time 2 days from now' do
+      it 'should return time 2 days from now' do
         @period = Crono::Period.new(2.day)
         expect(@period.next.to_s).to be_eql(2.days.from_now.to_s)
       end
@@ -80,7 +80,7 @@ describe Crono::Period do
       it 'should raise error when period is less than 1 day' do
         expect {
           Crono::Period.new(5.hours, at: '15:30')
-        }.to raise_error("period should be at least 1 day to use 'at'")
+        }.to raise_error("period should be at least 1 day to use 'at' with specified hour")
       end
 
       it 'should return time in relation to last time' do
@@ -93,6 +93,22 @@ describe Crono::Period do
         at = { hour: time.hour, min: time.min }
         @period = Crono::Period.new(2.days, at: at)
         expect(@period.next.utc.to_s).to be_eql(Time.now.change(at).utc.to_s)
+      end
+    end
+
+    context 'in hourly basis' do
+      it 'should return next hour minutes if current hour minutes passed' do
+        Timecop.freeze(Time.now.beginning_of_hour.advance(minutes: 20)) do
+          @period = Crono::Period.new(1.hour, at: { min: 15 })
+          expect(@period.next.utc.to_s).to be_eql 1.hour.from_now.beginning_of_hour.advance(minutes: 15).utc.to_s
+        end
+      end
+
+      it 'should return current hour minutes if current hour minutes not passed yet' do
+        Timecop.freeze(Time.now.beginning_of_hour.advance(minutes: 10)) do
+          @period = Crono::Period.new(1.hour, at: { min: 15 })
+          expect(@period.next.utc.to_s).to be_eql Time.now.beginning_of_hour.advance(minutes: 15).utc.to_s
+        end
       end
     end
   end

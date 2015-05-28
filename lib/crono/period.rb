@@ -49,7 +49,10 @@ module Crono
     end
 
     def parse_at(at)
-      fail "period should be at least 1 day to use 'at'" if @period < 1.day
+      if @period < 1.day && (at.is_a? String || at[:hour])
+        fail "period should be at least 1 day to use 'at' with specified hour"
+      end
+
       case at
       when String
         time = Time.parse(at)
