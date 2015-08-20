@@ -107,6 +107,8 @@ module Crono
     end
 
     def perform_before_interval?
+      return false if execution_interval == 0.minutes
+
       return true if self.last_performed_at.present? && self.last_performed_at > execution_interval.ago
       return true if model.updated_at.present? && model.created_at != model.updated_at && model.updated_at > execution_interval.ago
 
