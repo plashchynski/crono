@@ -107,7 +107,23 @@ module Crono
     end
 
     def perform_before_interval?
-      self.last_performed_at.present? && self.last_performed_at > execution_interval.ago
+      return true if self.last_performed_at.present? && self.last_performed_at > execution_interval.ago
+      return true if model.updated_at.present? && model.created_at != model.updated_at && model.updated_at > execution_interval.ago
+
+      Crono::CronoJob.transaction do
+        job_record = Crono::CronoJob.where(job_id: job_id).lock(true).first
+
+        return true if  job_record.updated_at.present? &&
+                        job_record.updated_at != job_record.created_at &&
+                        job_record.updated_at > execution_interval.ago
+
+        job_record.touch
+
+        return true unless job_record.save
+      end
+
+      # Means that this node is permit to perform the job.
+      return false
     end
   end
 end
