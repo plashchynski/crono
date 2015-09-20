@@ -1,3 +1,8 @@
+0.9.1
+-----------
+- Add ability to define minimal time between job executions to support multiple corno nodes, so two different nodes will not execute the same job
+
+
 0.8.9
 -----------
 

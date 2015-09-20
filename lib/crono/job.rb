@@ -7,9 +7,10 @@ module Crono
     include Logging
 
     attr_accessor :performer, :period, :last_performed_at,
-                  :next_performed_at, :job_log, :job_logger, :healthy
+                  :next_performed_at, :job_log, :job_logger, :healthy, :execution_interval
 
     def initialize(performer, period)
+      self.execution_interval = 0.minutes
       self.performer, self.period = performer, period
       self.job_log = StringIO.new
       self.job_logger = Logger.new(job_log)
@@ -31,6 +32,8 @@ module Crono
     end
 
     def perform
+      return Thread.new {} if perform_before_interval?
+
       log "Perform #{performer}"
       self.last_performed_at = Time.now
       self.next_performed_at = period.next(since: last_performed_at)
@@ -101,6 +104,28 @@ module Crono
 
     def model
       @model ||= Crono::CronoJob.find_or_create_by(job_id: job_id)
+    end
+
+    def perform_before_interval?
+      return false if execution_interval == 0.minutes
+
+      return true if self.last_performed_at.present? && self.last_performed_at > execution_interval.ago
+      return true if model.updated_at.present? && model.created_at != model.updated_at && model.updated_at > execution_interval.ago
+
+      Crono::CronoJob.transaction do
+        job_record = Crono::CronoJob.where(job_id: job_id).lock(true).first
+
+        return true if  job_record.updated_at.present? &&
+                        job_record.updated_at != job_record.created_at &&
+                        job_record.updated_at > execution_interval.ago
+
+        job_record.touch
+
+        return true unless job_record.save
+      end
+
+      # Means that this node is permit to perform the job.
+      return false
     end
   end
 end

@@ -7,8 +7,14 @@ module Crono
     end
 
     def every(period, *args)
-      job = Job.new(@performer, Period.new(period, *args))
-      @scheduler.add_job(job)
+      @job = Job.new(@performer, Period.new(period, *args))
+      @scheduler.add_job(@job)
+      self
+    end
+
+    def once_per(execution_interval)
+      @job.execution_interval = execution_interval if @job
+      self
     end
   end
 

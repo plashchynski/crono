@@ -36,6 +36,32 @@ describe Crono::Job do
       failing_job.perform.join
       expect(failing_job.healthy).to be false
     end
+
+    it 'should execute one' do
+      job.execution_interval = 5.minutes
+
+      expect(job).to receive(:perform_job).once
+      job.perform.join
+      thread = job.perform.join
+      expect(thread).to be_stop
+    end
+
+    it 'should execute twice' do
+      job.execution_interval = 0.minutes
+
+      test_preform_job_twice
+    end
+
+    it 'should execute twice without initialize execution_interval' do
+      test_preform_job_twice
+    end
+
+    def test_preform_job_twice
+      expect(job).to receive(:perform_job).twice
+      job.perform.join
+      thread = job.perform.join
+      expect(thread).to be_stop
+    end
   end
 
   describe '#description' do
