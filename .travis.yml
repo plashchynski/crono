@@ -4,8 +4,8 @@ os:
   - osx
 rvm:
   - 2.0.0
-  - 2.1
-  - 2.2
+  - 2.1.7
+  - 2.2.3
 notifications:
   webhooks:
     urls:
