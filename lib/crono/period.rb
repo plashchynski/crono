@@ -31,7 +31,7 @@ module Crono
 
     def description
       desc = "every #{@period.inspect}"
-      desc += " between #{@interval.from} and #{@interval.to}" if @interval
+      desc += " between #{@interval.from} and #{@interval.to} UTC" if @interval
       desc += format(' at %.2i:%.2i', @at_hour, @at_min) if @at_hour && @at_min
       desc += " on #{DAYS[@on].capitalize}" if @on
       desc

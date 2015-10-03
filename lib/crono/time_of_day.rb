@@ -6,17 +6,15 @@ module Crono
     attr_accessor :hour, :min
 
     def self.parse(value)
-      case value
-      when String
-        time = Time.parse(value)
-        new time.hour, time.min
-      when Hash
-        new value[:hour], value[:min]
-      when Time
-        new value.hour, value.min
-      else
-        fail "Unknown TimeOfDay format: #{value.inspect}"
-      end
+      time =
+        case value
+        when String then Time.parse(value).utc
+        when Hash   then Time.now.change(value).utc
+        when Time   then value.utc
+        else
+          fail "Unknown TimeOfDay format: #{value.inspect}"
+        end
+      new time.hour, time.min
     end
 
     def initialize(hour, min)
