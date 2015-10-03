@@ -4,15 +4,25 @@ module Crono
     DAYS = [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday,
             :sunday]
 
-    def initialize(period, at: nil, on: nil)
+    def initialize(period, at: nil, on: nil, within: nil)
       @period = period
       @at_hour, @at_min = parse_at(at) if at
+      @interval = Interval.parse(within) if within
       @on = parse_on(on) if on
     end
 
     def next(since: nil)
-      return initial_next unless since
-      @next = @period.since(since)
+      if @interval
+        if since
+          @next = @interval.next_within(since, @period)
+        else
+          return initial_next if @interval.within?(initial_next)
+          @next = @interval.next_within(initial_next, @period)
+        end
+      else
+        return initial_next unless since
+        @next = @period.since(since)
+      end
       @next = @next.beginning_of_week.advance(days: @on) if @on
       @next = @next.change(time_atts)
       return @next if @next.future?
@@ -21,6 +31,7 @@ module Crono
 
     def description
       desc = "every #{@period.inspect}"
+      desc += " between #{@interval.from} and #{@interval.to}" if @interval
       desc += format(' at %.2i:%.2i', @at_hour, @at_min) if @at_hour && @at_min
       desc += " on #{DAYS[@on].capitalize}" if @on
       desc
