@@ -1,13 +1,14 @@
 module Crono
   # Crono::PerformerProxy is a proxy used in cronotab.rb semantic
   class PerformerProxy
-    def initialize(performer, scheduler)
+    def initialize(performer, scheduler, data)
       @performer = performer
       @scheduler = scheduler
+      @data = data
     end
 
     def every(period, *args)
-      @job = Job.new(@performer, Period.new(period, *args))
+      @job = Job.new(@performer, Period.new(period, *args), @data)
       @scheduler.add_job(@job)
       self
     end
@@ -18,7 +19,7 @@ module Crono
     end
   end
 
-  def self.perform(performer)
-    PerformerProxy.new(performer, Crono.scheduler)
+  def self.perform(performer, data=nil)
+    PerformerProxy.new(performer, Crono.scheduler, data)
   end
 end

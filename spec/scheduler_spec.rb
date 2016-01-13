@@ -5,7 +5,7 @@ describe Crono::Scheduler do
 
   describe '#add_job' do
     it 'should call Job#load on Job' do
-      @job = Crono::Job.new(TestJob, Crono::Period.new(10.day, at: '04:05'))
+      @job = Crono::Job.new(TestJob, Crono::Period.new(10.day, at: '04:05'), nil)
       expect(@job).to receive(:load)
       scheduler.add_job(@job)
     end
@@ -17,7 +17,7 @@ describe Crono::Scheduler do
         Crono::Period.new(3.days, at: 10.minutes.from_now.strftime('%H:%M')),
         Crono::Period.new(1.day, at: 20.minutes.from_now.strftime('%H:%M')),
         Crono::Period.new(7.days, at: 40.minutes.from_now.strftime('%H:%M'))
-      ].map { |period| Crono::Job.new(TestJob, period) }
+      ].map { |period| Crono::Job.new(TestJob, period, nil) }
 
       time, jobs = scheduler.next_jobs
       expect(jobs).to be_eql [jobs[0]]
@@ -29,7 +29,7 @@ describe Crono::Scheduler do
         Crono::Period.new(1.day, at: time.strftime('%H:%M')),
         Crono::Period.new(1.day, at: time.strftime('%H:%M')),
         Crono::Period.new(1.day, at: 10.minutes.from_now.strftime('%H:%M'))
-      ].map { |period| Crono::Job.new(TestJob, period) }
+      ].map { |period| Crono::Job.new(TestJob, period, nil) }
 
       time, jobs = scheduler.next_jobs
       expect(jobs).to be_eql [jobs[0], jobs[1]]
@@ -40,7 +40,7 @@ describe Crono::Scheduler do
         Crono::Period.new(10.seconds),
         Crono::Period.new(10.seconds),
         Crono::Period.new(1.day, at: 10.minutes.from_now.strftime('%H:%M'))
-      ].map { |period| Crono::Job.new(TestJob, period) }
+      ].map { |period| Crono::Job.new(TestJob, period, nil) }
 
       _, next_jobs = scheduler.next_jobs
       expect(next_jobs).to be_eql [jobs[0]]

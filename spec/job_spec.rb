@@ -2,12 +2,18 @@ require 'spec_helper'
 
 describe Crono::Job do
   let(:period) { Crono::Period.new(2.day, at: '15:00') }
-  let(:job) { Crono::Job.new(TestJob, period) }
-  let(:failing_job) { Crono::Job.new(TestFailingJob, period) }
+  let(:data) {{some: 'data'}}
+  let(:job) { Crono::Job.new(TestJob, period, nil) }
+  let(:job_with_data) { Crono::Job.new(TestJob, period, data) }
+  let(:failing_job) { Crono::Job.new(TestFailingJob, period, nil) }
 
   it 'should contain performer and period' do
     expect(job.performer).to be TestJob
     expect(job.period).to be period
+  end
+
+  it 'should contain data as JSON String' do
+    expect(job_with_data.data).to eq '{"some":"data"}'
   end
 
   describe '#next' do
@@ -56,6 +62,18 @@ describe Crono::Job do
       test_preform_job_twice
     end
 
+    it 'should call perform of performer' do
+      expect(TestJob).to receive(:new).with(no_args)
+      thread = job.perform.join
+      expect(thread).to be_stop
+    end
+
+    it 'should call perform of performer with data' do
+      expect(TestJob).to receive(:new).with({"some" => "data"})
+      thread = job_with_data.perform.join
+      expect(thread).to be_stop
+    end
+
     def test_preform_job_twice
       expect(job).to receive(:perform_job).twice
       job.perform.join
@@ -80,10 +98,12 @@ describe Crono::Job do
     it 'should update saved job' do
       job.last_performed_at = Time.now
       job.healthy = true
+      job.data = JSON.generate({some: 'data'})
       job.save
       @crono_job = Crono::CronoJob.find_by(job_id: job.job_id)
       expect(@crono_job.last_performed_at.utc.to_s).to be_eql job.last_performed_at.utc.to_s
       expect(@crono_job.healthy).to be true
+      expect(@crono_job.data).to eq '{"some":"data"}'
     end
 
     it 'should save and truncate job log' do
@@ -102,7 +122,7 @@ describe Crono::Job do
     end
 
     it 'should load last_performed_at from DB' do
-      @job = Crono::Job.new(TestJob, period)
+      @job = Crono::Job.new(TestJob, period, data)
       @job.load
       expect(@job.last_performed_at.utc.to_s).to be_eql @saved_last_performed_at.utc.to_s
     end
