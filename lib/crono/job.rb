@@ -6,12 +6,13 @@ module Crono
   class Job
     include Logging
 
-    attr_accessor :performer, :period, :last_performed_at,
+    attr_accessor :performer, :period, :job_args, :last_performed_at,
                   :next_performed_at, :job_log, :job_logger, :healthy, :execution_interval
 
-    def initialize(performer, period)
+    def initialize(performer, period, job_args)
       self.execution_interval = 0.minutes
       self.performer, self.period = performer, period
+      self.job_args = JSON.generate(job_args) 
       self.job_log = StringIO.new
       self.job_logger = Logger.new(job_log)
       self.next_performed_at = period.next
@@ -64,11 +65,11 @@ module Crono
       saved_log = model.reload.log || ''
       log_to_save = saved_log + job_log.string
       model.update(last_performed_at: last_performed_at, log: log_to_save,
-                   healthy: healthy)
+                   healthy: healthy, args: job_args)
     end
 
     def perform_job
-      performer.new.perform
+      performer.new.perform *JSON.parse(job_args)
     rescue StandardError => e
       handle_job_fail(e)
     else

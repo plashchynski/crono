@@ -61,11 +61,11 @@ class TestJob < ActiveJob::Base
 end
 ```
 
-The ActiveJob jobs is convenient because you can use one job in both periodic and enqueued ways. But Active Job is not required. Any class can be used as a crono job if it implements a method `perform` without arguments:
+The ActiveJob jobs is convenient because you can use one job in both periodic and enqueued ways. But Active Job is not required. Any class can be used as a crono job if it implements a method `perform`:
 
 ```ruby
 class TestJob # This is not an Active Job job, but pretty legal Crono job.
-  def perform
+  def perform(*args)
     # put you scheduled code here
     # Comments.deleted.clean_up...
   end
@@ -122,6 +122,13 @@ The `at` can be a Hash:
 
 ```ruby
 Crono.perform(TestJob).every 1.day, at: {hour: 12, min: 15}
+```
+
+You can schedule a job with arguments, which can contain objects that can be
+serialized using JSON.generate
+
+```ruby
+Crono.perform(TestJob, 'some', 'args').every 1.day, at: {hour: 12, min: 15}
 ```
 
 #### Run daemon
