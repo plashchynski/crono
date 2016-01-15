@@ -132,12 +132,13 @@ To run Crono daemon, in your Rails project root directory:
 
 crono usage:
 ```
-Usage: crono [options]
+Usage: crono [options] start|stop|restart|run
     -C, --cronotab PATH              Path to cronotab file (Default: config/cronotab.rb)
     -L, --logfile PATH               Path to writable logfile (Default: log/crono.log)
-    -P, --pidfile PATH               Path to pidfile (Default: tmp/pids/crono.pid)
-    -d, --[no-]daemonize             Daemonize process (Default: false)
-    -e, --environment ENV            Application environment (Default: development)
+        --piddir PATH                Path to piddir (Default: tmp/pids)
+    -N, --process_name name          Name of the process (Default: crono)
+    -m, --monitor                    Start monitor process for a deamon (Default false)
+    -e, --environment ENV Application environment (Default: development)
 ```
 
 
