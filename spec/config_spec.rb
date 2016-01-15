@@ -8,7 +8,6 @@ describe Crono::Config do
       @config = Crono::Config.new
       expect(@config.cronotab).to be Crono::Config::CRONOTAB
       expect(@config.logfile).to be Crono::Config::LOGFILE
-      expect(@config.pidfile).to be nil
       expect(@config.piddir).to be Crono::Config::PIDDIR
       expect(@config.process_name).to be Crono::Config::PROCESS_NAME
       expect(@config.daemonize).to be false
