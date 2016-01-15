@@ -110,6 +110,17 @@ describe Crono::Period do
           expect(@period.next.utc.to_s).to be_eql Time.now.beginning_of_hour.advance(minutes: 15).utc.to_s
         end
       end
+
+      it 'should return next hour minutes within the given interval' do
+        Timecop.freeze(Time.now.change(hour: 16, min: 10)) do
+          @period = Crono::Period.new(1.hour, at: { min: 15 }, within: '08:00-16:00')
+          expect(@period.next.utc.to_s).to be_eql Time.now.tomorrow.change(hour: 8, min: 15).utc.to_s
+        end
+        Timecop.freeze(Time.now.change(hour: 16, min: 10)) do
+          @period = Crono::Period.new(1.hour, at: { min: 15 }, within: '23:00-07:00')
+          expect(@period.next.utc.to_s).to be_eql Time.now.change(hour: 23, min: 15).utc.to_s
+        end
+      end
     end
   end
 end
