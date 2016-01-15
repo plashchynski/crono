@@ -132,7 +132,7 @@ module Crono
           config.logfile = logfile
         end
 
-        opts.on("-P", "--pidfile PATH", "Path to pidfile (Default: #{config.pidfile})") do |pidfile|
+        opts.on("-P", "--pidfile PATH", "Deprecated! use --piddir with --process_name; Path to pidfile (Default: #{config.pidfile})") do |pidfile|
           config.pidfile = pidfile
         end
 
@@ -140,7 +140,7 @@ module Crono
           config.piddir = piddir
         end
 
-        opts.on("-N", "--process_name name", "Name of the process (Default: #{config.process_name})") do |process_name|
+        opts.on("-N", "--process_name NAME", "Name of the process (Default: #{config.process_name})") do |process_name|
           config.process_name = process_name
         end
 

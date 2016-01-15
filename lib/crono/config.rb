@@ -13,6 +13,7 @@ module Crono
     def initialize
       self.cronotab = CRONOTAB
       self.logfile  = LOGFILE
+      @pidfile = PIDFILE
       self.piddir = PIDDIR
       self.process_name = PROCESS_NAME
       self.daemonize = false
