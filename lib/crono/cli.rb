@@ -122,7 +122,7 @@ module Crono
 
     def parse_options(argv)
       @argv = OptionParser.new do |opts|
-        opts.banner = "Usage: crono [options] start|stop|restart|run"
+        opts.banner = "Usage: crono [options] [start|stop|restart|run]"
 
         opts.on("-C", "--cronotab PATH", "Path to cronotab file (Default: #{config.cronotab})") do |cronotab|
           config.cronotab = cronotab
@@ -136,7 +136,7 @@ module Crono
           config.pidfile = pidfile
         end
 
-        opts.on("--piddir PATH", "Path to piddir (Default: #{config.piddir})") do |piddir|
+        opts.on("-D", "--piddir PATH", "Path to piddir (Default: #{config.piddir})") do |piddir|
           config.piddir = piddir
         end
 

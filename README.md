@@ -131,23 +131,38 @@ serialized using JSON.generate
 Crono.perform(TestJob, 'some', 'args').every 1.day, at: {hour: 12, min: 15}
 ```
 
-#### Run daemon
+#### Run
 
-To run Crono daemon, in your Rails project root directory:
+To run Crono, in your Rails project root directory:
 
     bundle exec crono RAILS_ENV=development
 
 crono usage:
 ```
-Usage: crono [options] start|stop|restart|run
+Usage: crono [options] [start|stop|restart|run]
     -C, --cronotab PATH              Path to cronotab file (Default: config/cronotab.rb)
     -L, --logfile PATH               Path to writable logfile (Default: log/crono.log)
-        --piddir PATH                Path to piddir (Default: tmp/pids)
-    -N, --process_name name          Name of the process (Default: crono)
+    -P, --pidfile PATH               Deprecated! use --piddir with --process_name; Path to pidfile (Default: )
+    -D, --piddir PATH                Path to piddir (Default: tmp/pids)
+    -N, --process_name NAME          Name of the process (Default: crono)
+    -d, --[no-]daemonize             Deprecated! Instead use crono [start|stop|restart] without this option; Daemonize process (Default: false)
     -m, --monitor                    Start monitor process for a deamon (Default false)
-    -e, --environment ENV Application environment (Default: development)
+    -e, --environment ENV            Application environment (Default: development)
 ```
 
+#### Run as daemon
+
+To run Crono as daemon, please add to your Gemfile:
+
+```ruby
+gem 'daemons'
+```
+
+Then:
+
+    bundle install; bundle exec crono start RAILS_ENV=development
+
+There are "start", "stop", and "restart" commands.
 
 ## Web UI
 
