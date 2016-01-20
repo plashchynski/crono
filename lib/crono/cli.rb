@@ -80,7 +80,7 @@ module Crono
       ENV['RACK_ENV'] = ENV['RAILS_ENV'] = config.environment
       require 'rails'
       require File.expand_path('config/environment.rb')
-      ::Rails.application.eager_load! if config.daemonize
+      ::Rails.application.eager_load!
     end
 
     def check_jobs
