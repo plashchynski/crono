@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     crono (1.0.0)
-      activerecord (~> 4.0)
-      activesupport (~> 4.0)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
 
 GEM
   remote: https://rubygems.org/
