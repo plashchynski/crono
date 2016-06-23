@@ -11,7 +11,7 @@ Crono is a time-based background job scheduler daemon (just like Cron) for Ruby 
 
 ## The Purpose
 
-Currently there is no such thing as Ruby Cron for Rails. Well, there's [Whenever](https://github.com/javan/whenever) but it works on top of Unix Cron, so you haven't control of it from Ruby. Crono is pure Ruby. It doesn't use Unix Cron and other platform-dependent things. So you can use it on all platforms supported by Ruby. It persists job states to your database using Active Record. You have full control of jobs performing process. It's Ruby, so you can understand and modify it to fit your needs.
+Currently, there is no such thing as Ruby Cron for Rails. Well, there's [Whenever](https://github.com/javan/whenever) but it works on top of Unix Cron, so you can't manage it from Ruby. Crono is pure Ruby. It doesn't use Unix Cron and other platform-dependent things. So you can use it on all platforms supported by Ruby. It persists job states to your database using Active Record. You have full control of jobs performing process. It's Ruby, so you can understand and modify it to fit your needs.
 
 ![Web UI](https://github.com/plashchynski/crono/raw/master/examples/crono_web_ui.png)
 
@@ -47,7 +47,7 @@ Now you are ready to move forward to create a job and schedule it.
 
 #### Create Job
 
-Crono can use Active Job jobs from `app/jobs/`. The only requirements is that the `perform` method should take no arguments.
+Crono can use Active Job jobs from `app/jobs/`. The only requirement is that the `perform` method should take no arguments.
 
 Here's an example of a job:
 
@@ -61,7 +61,7 @@ class TestJob < ActiveJob::Base
 end
 ```
 
-The ActiveJob jobs is convenient because you can use one job in both periodic and enqueued ways. But Active Job is not required. Any class can be used as a crono job if it implements a method `perform`:
+The ActiveJob jobs are convenient because you can use one job in both periodic and enqueued ways. But Active Job is not required. Any class can be used as a crono job if it implements a method `perform`:
 
 ```ruby
 class TestJob # This is not an Active Job job, but pretty legal Crono job.
@@ -111,7 +111,7 @@ Crono.perform(TestJob).every 2.days, at: {hour: 15, min: 30}
 Crono.perform(TestJob).every 1.week, on: :monday, at: "15:30"
 ```
 
-You can schedule one job a few times, if you want the job to be performed a few times a day or a week:
+You can schedule one job a few times if you want the job to be performed a few times a day or a week:
 
 ```ruby
 Crono.perform(TestJob).every 1.week, on: :monday
@@ -150,9 +150,9 @@ Usage: crono [options] [start|stop|restart|run]
     -e, --environment ENV            Application environment (Default: development)
 ```
 
-#### Run as daemon
+#### Run as a daemon
 
-To run Crono as daemon, please add to your Gemfile:
+To run Crono as a daemon, please add to your Gemfile:
 
 ```ruby
 gem 'daemons'
