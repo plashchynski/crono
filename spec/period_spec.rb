@@ -61,14 +61,14 @@ describe Crono::Period do
         time = 10.minutes.ago
         at = [time.hour, time.min].join(':')
         @period = Crono::Period.new(2.days, at: at)
-        expect(@period.next).to be_eql(2.days.from_now.change(hour: time.hour, min: time.min))
+        expect(@period.next.to_s).to be_eql(2.days.from_now.change(hour: time.hour, min: time.min).to_s)
       end
 
       it "should set time to 'at' time as a hash" do
         time = 10.minutes.ago
         at = { hour: time.hour, min: time.min }
         @period = Crono::Period.new(2.days, at: at)
-        expect(@period.next).to be_eql(2.days.from_now.change(at))
+        expect(@period.next.to_s).to be_eql(2.days.from_now.change(at).to_s)
       end
 
       it "should raise error when 'at' is wrong" do
