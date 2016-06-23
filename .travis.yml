@@ -10,7 +10,7 @@ rvm:
 matrix:
   exclude:
     - rvm: 2.3.1
-    - os: osx
+      os: osx
 notifications:
   webhooks:
     urls:
