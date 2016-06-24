@@ -105,7 +105,6 @@ describe Crono::Job do
       @crono_job = Crono::CronoJob.find_by(job_id: job.job_id)
       expect(@crono_job.last_performed_at.utc.to_s).to be_eql job.last_performed_at.utc.to_s
       expect(@crono_job.healthy).to be true
-      expect(@crono_job.args).to eq '[{"some":"data"}]'
     end
 
     it 'should save and truncate job log' do

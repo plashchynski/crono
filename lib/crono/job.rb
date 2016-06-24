@@ -65,7 +65,7 @@ module Crono
       saved_log = model.reload.log || ''
       log_to_save = saved_log + job_log.string
       model.update(last_performed_at: last_performed_at, log: log_to_save,
-                   healthy: healthy, args: job_args)
+                   healthy: healthy)
     end
 
     def perform_job

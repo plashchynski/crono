@@ -5,7 +5,6 @@ class CreateCronoJobs < ActiveRecord::Migration
       t.text      :log
       t.datetime  :last_performed_at
       t.boolean   :healthy
-      t.text      :args
       t.timestamps null: false
     end
     add_index :crono_jobs, [:job_id], unique: true
