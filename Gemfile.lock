@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    crono (1.0.0)
+    crono (1.0.1)
       activerecord (>= 4.0)
       activesupport (>= 4.0)
 
@@ -30,7 +30,7 @@ GEM
       tilt
     i18n (0.7.0)
     json (1.8.3)
-    minitest (5.8.4)
+    minitest (5.9.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
