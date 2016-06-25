@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    crono (1.0.1)
+    crono (1.0.2)
       activerecord (>= 4.0)
       activesupport (>= 4.0)
 
