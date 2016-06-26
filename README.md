@@ -195,6 +195,11 @@ Use the `capistrano-crono` gem ([github](https://github.com/plashchynski/capistr
 Feel free to create [issues](https://github.com/plashchynski/crono/issues)
 
 
+## Known Issues
+
+* Is not compatible with the `protected_attributes` gem. See: [https://github.com/plashchynski/crono/issues/43](https://github.com/plashchynski/crono/issues/43)
+
+
 ## License
 
 Please see [LICENSE](https://github.com/plashchynski/crono/blob/master/LICENSE) for licensing details.
