@@ -1,3 +1,29 @@
+1.0.3
+-----------
+- "every 1 week" jobs now displaying on Rails 5 as "1 week" not as "7 days"
+- Liberal gem dependencies to support both Rails 4 and Rails 5
+
+
+1.0.2
+-----------
+- Fix table_name_suffix/prefix issue: https://github.com/plashchynski/crono/issues/33
+
+
+1.0.1
+-----------
+- Fix job saving
+
+
+1.0.0
+-----------
+- Rails 5 support (thanks to @adamico)
+- Possibility to schedule jobs with arguments (thanks to @preisanalytics)
+- Added :within option to run only within given time interval (thanks to @lhz)
+- daemon gem support (thanks to @preisanalytics) https://github.com/plashchynski/crono/pull/37
+- Support multiple nodes (thanks to @Natural-Intelligence)
+- Fixed DB connection pool issue (thanks to @ChandravatiSG)
+
+
 0.9.1
 -----------
 - Add ability to define minimal time between job executions to support multiple corno nodes, so two different nodes will not execute the same job
