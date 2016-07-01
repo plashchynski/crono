@@ -18,7 +18,7 @@ Currently, there is no such thing as Ruby Cron for Rails. Well, there's [Wheneve
 
 ## Requirements
 
-Tested with latest MRI Ruby (2.3, 2.2, 2.1, and 2.0), Rails 4.*, and Rails 5.*.
+Tested with latest MRI Ruby 2.2+, Rails 4.*, and Rails 5.*.
 Other versions are untested but might work fine.
 
 
