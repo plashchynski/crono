@@ -183,6 +183,14 @@ Rails.application.routes.draw do
 
 Access management and other questions described in the [wiki](https://github.com/plashchynski/crono/wiki/Web-UI).
 
+#### Known issues
+
+For Rails 5, in case of the errors:
+```
+`require': cannot load such file -- rack/showexceptions (LoadError)
+```
+See the related issue [#1055](https://github.com/sinatra/sinatra/issues/1055)
+
 
 ## Capistrano
 
