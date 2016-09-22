@@ -4,7 +4,6 @@ Crono — Job scheduler for Rails
 [![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
 [![Code Climate](https://codeclimate.com/github/plashchynski/crono/badges/gpa.svg)](https://codeclimate.com/github/plashchynski/crono)
 [![security](https://hakiri.io/github/plashchynski/crono/master.svg)](https://hakiri.io/github/plashchynski/crono/master)
-[![Join the chat at https://gitter.im/plashchynski/crono](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/plashchynski/crono?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails.
 
@@ -18,7 +17,7 @@ Currently, there is no such thing as Ruby Cron for Rails. Well, there's [Wheneve
 
 ## Requirements
 
-Tested with latest MRI Ruby 2.2+, Rails 4.*, and Rails 5.*.
+Tested with latest MRI Ruby 2.2+, Rails 4.\*, and Rails 5.\*.
 Other versions are untested but might work fine.
 
 
@@ -77,8 +76,8 @@ Here's an example of a Rake Task within a job:
 ```ruby
 # config/cronotab.rb
 require 'rake'
-# Be sure to change AppName to your application name!
-AppName::Application.load_tasks
+
+Rails.app_class.load_tasks
 
 class Test
   def perform
