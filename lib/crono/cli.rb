@@ -29,7 +29,11 @@ module Crono
       Cronotab.process(File.expand_path(config.cronotab))
       print_banner
 
-      check_jobs
+      unless have_jobs?
+        logger.error "You have no jobs in you cronotab file #{config.cronotab}"
+        return
+      end
+
       if config.daemonize
         start_working_loop_in_daemon
       else
@@ -38,6 +42,10 @@ module Crono
     end
 
     private
+
+    def have_jobs?
+      Crono.scheduler.jobs.present?
+    end
 
     def setup_log
       if config.daemonize
@@ -83,11 +91,6 @@ module Crono
       require 'rails'
       require File.expand_path('config/environment.rb')
       ::Rails.application.eager_load!
-    end
-
-    def check_jobs
-      return if Crono.scheduler.jobs.present?
-      logger.error "You have no jobs in you cronotab file #{config.cronotab}"
     end
 
     def start_working_loop_in_daemon
