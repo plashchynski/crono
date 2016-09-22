@@ -189,7 +189,7 @@ For Rails 5, in case of the errors:
 ```
 `require': cannot load such file -- rack/showexceptions (LoadError)
 ```
-See the related issue [#1055](https://github.com/sinatra/sinatra/issues/1055)
+See the related issue [#52](https://github.com/plashchynski/crono/issues/52)
 
 
 ## Capistrano
