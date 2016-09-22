@@ -76,8 +76,8 @@ Here's an example of a Rake Task within a job:
 ```ruby
 # config/cronotab.rb
 require 'rake'
-# Be sure to change AppName to your application name!
-AppName::Application.load_tasks
+
+Rails.app_class.load_tasks
 
 class Test
   def perform
