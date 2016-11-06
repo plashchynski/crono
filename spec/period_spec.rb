@@ -49,6 +49,16 @@ describe Crono::Period do
           expect(@period.next).to be_eql(tuesday)
         end
       end
+
+      it 'should return today on the first run if not too late' do
+        @period = Crono::Period.new(1.week, on: :sunday, at: '22:00')
+        Timecop.freeze(Time.now.beginning_of_week.advance(days: 6)
+                           .change(hour: 21, min: 0)) do
+          expect(@period.next).to be_eql(
+            Time.now.beginning_of_week.advance(days: 6).change(hour: 22, min: 0)
+          )
+        end
+      end
     end
 
     context 'in daily basis' do

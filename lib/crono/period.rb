@@ -48,6 +48,7 @@ module Crono
     def initial_day
       return Time.now unless @on
       day = Time.now.beginning_of_week.advance(days: @on)
+      day = day.change(time_atts)
       return day if day.future?
       @period.from_now.beginning_of_week.advance(days: @on)
     end
