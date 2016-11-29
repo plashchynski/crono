@@ -6,15 +6,16 @@ module Crono
   class Job
     include Logging
 
-    attr_accessor :performer, :period, :job_args, :last_performed_at,
+    attr_accessor :performer, :period, :job_args, :last_performed_at, :job_options,
                   :next_performed_at, :job_log, :job_logger, :healthy, :execution_interval
 
-    def initialize(performer, period, job_args)
+    def initialize(performer, period, job_args, job_options = {})
       self.execution_interval = 0.minutes
       self.performer, self.period = performer, period
       self.job_args = JSON.generate(job_args) 
       self.job_log = StringIO.new
       self.job_logger = Logger.new(job_log)
+      self.job_options = job_options
       self.next_performed_at = period.next
       @semaphore = Mutex.new
     end

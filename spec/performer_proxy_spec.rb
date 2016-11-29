@@ -20,8 +20,14 @@ describe Crono::PerformerProxy do
   end
 
   it 'should add job with args to schedule' do
-    expect(Crono::Job).to receive(:new).with(TestJob, kind_of(Crono::Period), [:some, {some: 'data'}])
+    expect(Crono::Job).to receive(:new).with(TestJob, kind_of(Crono::Period), [:some, {some: 'data'}], nil)
     allow(Crono.scheduler).to receive(:add_job)
     Crono.perform(TestJob, :some, {some: 'data'}).every(2.days, at: '15:30')
+  end
+
+  it 'should add job with options to schedule' do
+    expect(Crono::Job).to receive(:new).with(TestJob, kind_of(Crono::Period), [], {some_option: true})
+    allow(Crono.scheduler).to receive(:add_job)
+    Crono.perform(TestJob).with_options(some_option: true).every(2.days, at: '15:30')
   end
 end
