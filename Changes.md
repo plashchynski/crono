@@ -1,3 +1,13 @@
+1.1.0
+-----------
+- Rails 3 and old Rubies are not supported anymore, sorry rails 3 guys...
+- Requires Ruby 2.2.2 or newer
+- Fixed crash when no jobs defined in your cronotab
+- Some doc updates (thanks to @pachacamac)
+- Job will schedule on: today if at: time not passed (thanks to @acolyer)
+- Job log truncating (thanks to @reiz)
+
+
 1.0.3
 -----------
 - "every 1 week" jobs now displaying on Rails 5 as "1 week" not as "7 days"

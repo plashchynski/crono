@@ -23,6 +23,7 @@ module Crono
         return initial_next unless since
         @next = @period.since(since)
       end
+
       @next = @next.beginning_of_week.advance(days: @on) if @on
       @next = @next.change(time_atts)
       return @next if @next.future?
