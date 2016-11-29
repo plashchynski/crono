@@ -3,12 +3,8 @@ os:
   - linux
   - osx
 rvm:
-  - 2.2.3
-  - 2.3.1
-matrix:
-  exclude:
-    - rvm: 2.3.1
-      os: osx
+  - 2.2.6
+  - 2.3.3
 notifications:
   webhooks:
     urls:
