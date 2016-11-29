@@ -107,12 +107,28 @@ describe Crono::Job do
       expect(@crono_job.healthy).to be true
     end
 
-    it 'should save and truncate job log' do
+    it 'should save log' do
       message = 'test message'
       job.send(:log, message)
       job.save
       expect(job.send(:model).reload.log).to include message
       expect(job.job_log.string).to be_empty
+    end
+
+    it 'should not truncate log if not specified' do
+      log = (1..100).map {|n| "line #{n}" }.join("\n")
+      job = Crono::Job.new(TestJob, period, [])
+      job.send(:log, log)
+      job.save
+      expect(job.send(:model).reload.log.lines.size).to be >= log.lines.size
+    end
+
+    it 'should truncate log if specified' do
+      log = (1..100).map {|n| "line #{n}" }.join("\n")
+      job = Crono::Job.new(TestJob, period, [], truncate_log: 50)
+      job.send(:log, log)
+      job.save
+      expect(job.send(:model).reload.log.lines.size).to be 50
     end
   end
 
@@ -132,6 +148,7 @@ describe Crono::Job do
   describe '#log' do
     it 'should write log messages to both common and job log' do
       message = 'Test message'
+      job.logfile = "/dev/null"
       expect(job.logger).to receive(:log).with(Logger::INFO, message)
       expect(job.job_logger).to receive(:log).with(Logger::INFO, message)
       job.send(:log, message)

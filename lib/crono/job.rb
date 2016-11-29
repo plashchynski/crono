@@ -62,9 +62,15 @@ module Crono
       job_log.truncate(job_log.rewind)
     end
 
+    def truncate_log(log)
+      return log.lines.last(job_options[:truncate_log]).join if job_options[:truncate_log]
+      return log
+    end
+
     def update_model
       saved_log = model.reload.log || ''
       log_to_save = saved_log + job_log.string
+      log_to_save = truncate_log(log_to_save)
       model.update(last_performed_at: last_performed_at, log: log_to_save,
                    healthy: healthy)
     end
@@ -99,7 +105,7 @@ module Crono
 
     def log(message, severity = Logger::INFO)
       @semaphore.synchronize do
-        logger.log severity, message
+        logger.log(severity, message) if logger
         job_logger.log severity, message
       end
     end

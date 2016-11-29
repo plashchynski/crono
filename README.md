@@ -130,6 +130,12 @@ serialized using JSON.generate
 Crono.perform(TestJob, 'some', 'args').every 1.day, at: {hour: 12, min: 15}
 ```
 
+You can set some options that not passed to the job but affect how the job will be treated by Crono. For example, you can set to truncate job logs (which stored in the database) to a certain number of records:
+
+```ruby
+Crono.perform(TestJob).with_options(truncate_log: 100).every 1.week, on: :monday
+```
+
 #### Run
 
 To run Crono, in your Rails project root directory:
