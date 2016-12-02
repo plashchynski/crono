@@ -2,7 +2,7 @@ class CreateCronoJobs < ActiveRecord::Migration
   def self.up
     create_table :crono_jobs do |t|
       t.string    :job_id, null: false
-      t.text      :log, limit: 4294967295 # LONGTEXT for MySQL
+      t.text      :log, limit: 1073741823 # LONGTEXT for MySQL
       t.datetime  :last_performed_at
       t.boolean   :healthy
       t.timestamps null: false
