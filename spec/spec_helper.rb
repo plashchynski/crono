@@ -8,6 +8,8 @@ require 'byebug'
 require 'crono'
 require 'generators/crono/install/templates/migrations/create_crono_jobs.rb'
 
+Time.zone_default = Time.find_zone("UTC")
+
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
   database: 'file::memory:?cache=shared'

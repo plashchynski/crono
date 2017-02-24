@@ -27,7 +27,7 @@ module Crono
       @next = @next.beginning_of_week.advance(days: @on) if @on
       @next = @next.change(time_atts)
       return @next if @next.future?
-      Time.now
+      Time.zone.now
     end
 
     def description
@@ -47,8 +47,8 @@ module Crono
     end
 
     def initial_day
-      return Time.now unless @on
-      day = Time.now.beginning_of_week.advance(days: @on)
+      return Time.zone.now unless @on
+      day = Time.zone.now.beginning_of_week.advance(days: @on)
       day = day.change(time_atts)
       return day if day.future?
       @period.from_now.beginning_of_week.advance(days: @on)
@@ -68,7 +68,7 @@ module Crono
 
       case at
       when String
-        time = Time.parse(at)
+        time = Time.zone.parse(at)
         return time.hour, time.min
       when Hash
         return at[:hour], at[:min]

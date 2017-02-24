@@ -27,23 +27,23 @@ describe Crono::Period do
 
       it "should return a 'on' day" do
         @period = Crono::Period.new(1.week, on: :thursday, at: '15:30')
-        current_week = Time.now.beginning_of_week
+        current_week = Time.zone.now.beginning_of_week
         last_run_time = current_week.advance(days: 1) # last run on the tuesday
-        next_run_at = Time.now.next_week.advance(days: 3)
+        next_run_at = Time.zone.now.next_week.advance(days: 3)
                       .change(hour: 15, min: 30)
         expect(@period.next(since: last_run_time)).to be_eql(next_run_at)
       end
 
       it "should return a next week day 'on'" do
         @period = Crono::Period.new(1.week, on: :thursday)
-        Timecop.freeze(Time.now.beginning_of_week.advance(days: 4)) do
-          expect(@period.next).to be_eql(Time.now.next_week.advance(days: 3))
+        Timecop.freeze(Time.zone.now.beginning_of_week.advance(days: 4)) do
+          expect(@period.next).to be_eql(Time.zone.now.next_week.advance(days: 3))
         end
       end
 
       it 'should return a current week day on the first run if not too late' do
         @period = Crono::Period.new(7.days, on: :tuesday)
-        beginning_of_the_week = Time.now.beginning_of_week
+        beginning_of_the_week = Time.zone.now.beginning_of_week
         tuesday = beginning_of_the_week.advance(days: 1)
         Timecop.freeze(beginning_of_the_week) do
           expect(@period.next).to be_eql(tuesday)
@@ -52,19 +52,19 @@ describe Crono::Period do
 
       it 'should return today on the first run if not too late' do
         @period = Crono::Period.new(1.week, on: :sunday, at: '22:00')
-        Timecop.freeze(Time.now.beginning_of_week.advance(days: 6)
+        Timecop.freeze(Time.zone.now.beginning_of_week.advance(days: 6)
                            .change(hour: 21, min: 0)) do
           expect(@period.next).to be_eql(
-            Time.now.beginning_of_week.advance(days: 6).change(hour: 22, min: 0)
+            Time.zone.now.beginning_of_week.advance(days: 6).change(hour: 22, min: 0)
           )
         end
       end
     end
 
     context 'in daily basis' do
-      it "should return Time.now if the next time in past" do
+      it "should return Time.zone.now if the next time in past" do
         @period = Crono::Period.new(1.day, at: '06:00')
-        expect(@period.next(since: 2.days.ago).to_s).to be_eql(Time.now.to_s)
+        expect(@period.next(since: 2.days.ago).to_s).to be_eql(Time.zone.now.to_s)
       end
 
       it 'should return time 2 days from now' do
@@ -107,33 +107,33 @@ describe Crono::Period do
         time = 10.minutes.from_now
         at = { hour: time.hour, min: time.min }
         @period = Crono::Period.new(2.days, at: at)
-        expect(@period.next.utc.to_s).to be_eql(Time.now.change(at).utc.to_s)
+        expect(@period.next.utc.to_s).to be_eql(Time.zone.now.change(at).utc.to_s)
       end
     end
 
     context 'in hourly basis' do
       it 'should return next hour minutes if current hour minutes passed' do
-        Timecop.freeze(Time.now.beginning_of_hour.advance(minutes: 20)) do
+        Timecop.freeze(Time.zone.now.beginning_of_hour.advance(minutes: 20)) do
           @period = Crono::Period.new(1.hour, at: { min: 15 })
           expect(@period.next.utc.to_s).to be_eql 1.hour.from_now.beginning_of_hour.advance(minutes: 15).utc.to_s
         end
       end
 
       it 'should return current hour minutes if current hour minutes not passed yet' do
-        Timecop.freeze(Time.now.beginning_of_hour.advance(minutes: 10)) do
+        Timecop.freeze(Time.zone.now.beginning_of_hour.advance(minutes: 10)) do
           @period = Crono::Period.new(1.hour, at: { min: 15 })
-          expect(@period.next.utc.to_s).to be_eql Time.now.beginning_of_hour.advance(minutes: 15).utc.to_s
+          expect(@period.next.utc.to_s).to be_eql Time.zone.now.beginning_of_hour.advance(minutes: 15).utc.to_s
         end
       end
 
       it 'should return next hour minutes within the given interval' do
-        Timecop.freeze(Time.now.change(hour: 16, min: 10)) do
+        Timecop.freeze(Time.zone.now.change(hour: 16, min: 10)) do
           @period = Crono::Period.new(1.hour, at: { min: 15 }, within: '08:00-16:00')
-          expect(@period.next.utc.to_s).to be_eql Time.now.tomorrow.change(hour: 8, min: 15).utc.to_s
+          expect(@period.next.utc.to_s).to be_eql Time.zone.now.tomorrow.change(hour: 8, min: 15).utc.to_s
         end
-        Timecop.freeze(Time.now.change(hour: 16, min: 10)) do
+        Timecop.freeze(Time.zone.now.change(hour: 16, min: 10)) do
           @period = Crono::Period.new(1.hour, at: { min: 15 }, within: '23:00-07:00')
-          expect(@period.next.utc.to_s).to be_eql Time.now.change(hour: 23, min: 15).utc.to_s
+          expect(@period.next.utc.to_s).to be_eql Time.zone.now.change(hour: 23, min: 15).utc.to_s
         end
       end
     end
