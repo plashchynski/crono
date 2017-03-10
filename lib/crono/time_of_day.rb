@@ -8,8 +8,8 @@ module Crono
     def self.parse(value)
       time =
         case value
-        when String then Time.parse(value).utc
-        when Hash   then Time.now.change(value).utc
+        when String then Time.zone.parse(value).utc
+        when Hash   then Time.zone.now.change(value).utc
         when Time   then value.utc
         else
           fail "Unknown TimeOfDay format: #{value.inspect}"

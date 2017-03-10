@@ -22,7 +22,7 @@ module Crono
       parse_options(ARGV)
       parse_command(ARGV)
 
-      setup_log 
+      setup_log
 
       write_pid unless config.daemonize
       load_rails
@@ -120,7 +120,7 @@ module Crono
     def start_working_loop
       loop do
         next_time, jobs = Crono.scheduler.next_jobs
-        sleep(next_time - Time.now) if next_time > Time.now
+        sleep(next_time - Time.zone.now) if next_time > Time.zone.now
         jobs.each(&:perform)
       end
     end

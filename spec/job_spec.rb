@@ -98,7 +98,7 @@ describe Crono::Job do
     end
 
     it 'should update saved job' do
-      job.last_performed_at = Time.now
+      job.last_performed_at = Time.zone.now
       job.healthy = true
       job.job_args = JSON.generate([{some: 'data'}])
       job.save
@@ -134,7 +134,7 @@ describe Crono::Job do
 
   describe '#load' do
     before do
-      @saved_last_performed_at = job.last_performed_at = Time.now
+      @saved_last_performed_at = job.last_performed_at = Time.zone.now
       job.save
     end
 

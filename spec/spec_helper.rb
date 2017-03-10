@@ -8,6 +8,10 @@ require 'byebug'
 require 'crono'
 require 'generators/crono/install/templates/migrations/create_crono_jobs.rb'
 
+# setting default time zone
+# In Rails project, Time.zone_default equals "UTC"
+Time.zone_default = Time.find_zone("UTC")
+
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
   database: 'file::memory:?cache=shared'
