@@ -21,7 +21,18 @@ module Crono
 
       def create_migrations
         migration_template 'migrations/create_crono_jobs.rb',
-                           'db/migrate/create_crono_jobs.rb'
+                           'db/migrate/create_crono_jobs.rb',
+                           migration_version: migration_version
+      end
+
+      def rails5?
+        Rails.version.start_with? '5'
+      end
+
+      def migration_version
+        if rails5?
+          "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
+        end
       end
     end
   end
