@@ -1,5 +1,5 @@
-class CreateCronoJobs < ActiveRecord::Migration
-  def self.up
+class CreateCronoJobs < ActiveRecord::Migration<%= migration_version %>
+  def change
     create_table :crono_jobs do |t|
       t.string    :job_id, null: false
       t.text      :log, limit: 1073741823 # LONGTEXT for MySQL
@@ -8,9 +8,5 @@ class CreateCronoJobs < ActiveRecord::Migration
       t.timestamps null: false
     end
     add_index :crono_jobs, [:job_id], unique: true
-  end
-
-  def self.down
-    drop_table :crono_jobs
   end
 end
