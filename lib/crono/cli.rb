@@ -120,7 +120,8 @@ module Crono
     def start_working_loop
       loop do
         next_time, jobs = Crono.scheduler.next_jobs
-        sleep(next_time - Time.zone.now) if next_time > Time.zone.now
+        now = Time.zone.now
+        sleep(next_time - now) if next_time > now
         jobs.each(&:perform)
       end
     end
