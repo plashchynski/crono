@@ -171,19 +171,13 @@ There are "start", "stop", and "restart" commands.
 
 ## Web UI
 
-Crono comes with a Sinatra application that can display the current state of Crono jobs.  
-Add `sinatra` and `haml` to your Gemfile  
-
-```ruby
-gem 'haml'
-gem 'sinatra', require: nil
-```
+Crono can display the current state of Crono jobs.  
 
 Add the following to your `config/routes.rb`:
 
 ```ruby
 Rails.application.routes.draw do
-    mount Crono::Web, at: '/crono'
+    mount Crono::Engine, at: '/crono'
     ...
 ```
 
