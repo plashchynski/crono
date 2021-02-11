@@ -1,5 +1,5 @@
-require "bundler/setup"
+require 'bundler/setup'
 
-load "rails/tasks/statistics.rake"
+load 'rails/tasks/statistics.rake'
 
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'

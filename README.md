@@ -17,7 +17,7 @@ Currently, there is no such thing as Ruby Cron for Rails. Well, there's [Wheneve
 
 ## Requirements
 
-Tested with latest MRI Ruby 2.2+, 2.3+, Rails 4.\*, and Rails 5.\*.
+Tested with latest MRI Ruby 2.2+, 2.3+, Rails 4.\*, Rails 5.\*, and Rails 6.\*.
 Other versions are untested but might work fine.
 
 
@@ -53,7 +53,7 @@ Here's an example of a job:
 ```ruby
 # app/jobs/test_job.rb
 class TestJob < ActiveJob::Base
-  def perform
+  def perform(options)
     # put you scheduled code here
     # Comments.deleted.clean_up...
   end
@@ -80,7 +80,7 @@ require 'rake'
 Rails.app_class.load_tasks
 
 class Test
-  def perform
+  def perform(options)
     Rake::Task['crono:hello'].invoke
   end
 end

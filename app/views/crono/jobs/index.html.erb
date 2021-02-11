@@ -21,21 +21,18 @@
         <td>
           <% if job.last_performed_at.nil? %>
             <span class="grey-text darken-3" title="This job has never been performed yet.">
-              <i class="mdi-device-access-time"></i>
-              Pending
+              ◷ Pending
             </span>
           <% elsif job.healthy %>
             <a href="<%= job_path(job) %>">
               <span class="green-text darken-3" title="This job was performed successfully.">
-                <i class="mdi-action-done"></i>
-                Success
+                ✔ Success
               </span>
             </a>
           <% else %>
             <a href="<%= job_path(job) %>">
               <span class="red-text" title="There were problems with this job. Follow the link to check the log.">
-                <i class="mdi-alert-warning"></i>
-                Error
+                ⚠ Error
               </span>
             </a>
           <% end %>
@@ -43,8 +40,7 @@
         <td>
           <% if job.last_performed_at %>
             <a href="<%= job_path(job) %>" class="right">
-              Log
-              <i class="mdi-navigation-chevron-right"></i>
+              Log ›
             </a>
           <% end %>
         </td>
