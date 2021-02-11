@@ -1,5 +1,3 @@
-require 'active_record'
-
 module Crono
   # Crono::CronoJob is a ActiveRecord model to store job state
   class CronoJob < ActiveRecord::Base
