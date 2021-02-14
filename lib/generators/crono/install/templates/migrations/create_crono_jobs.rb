@@ -1,4 +1,4 @@
-class CreateCronoJobs < ActiveRecord::Migration<%= migration_version %>
+class CreateCronoJobs < ActiveRecord::Migration[6.1]
   def change
     create_table :crono_jobs do |t|
       t.string    :job_id, null: false

@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+class TestJob
+  def perform
+    puts 'Test!'
+  end
+end
+
 describe Crono::Scheduler do
   let(:scheduler) { Crono::Scheduler.new }
 

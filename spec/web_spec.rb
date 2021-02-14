@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'rack/test'
 include Rack::Test::Methods
 
-describe Crono::Web do
-  let(:app) { Crono::Web }
+describe Crono::Engine do
+  let(:app) { Crono::Engine }
 
   before do
     Crono::CronoJob.destroy_all
@@ -45,7 +45,7 @@ describe Crono::Web do
 
   describe '/job/:id' do
     it 'should show job log' do
-      get "/job/#{@test_job.id}"
+      get "/jobs/#{@test_job.id}"
       expect(last_response).to be_ok
       expect(last_response.body).to include @test_job_id
       expect(last_response.body).to include @test_job_log
@@ -54,7 +54,7 @@ describe Crono::Web do
     it 'should show a message about the unhealthy job' do
       message = 'An error occurs during the last execution of this job'
       @test_job.update(healthy: false)
-      get "/job/#{@test_job.id}"
+      get "/jobs/#{@test_job.id}"
       expect(last_response.body).to include message
     end
   end

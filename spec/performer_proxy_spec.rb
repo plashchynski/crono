@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+class TestJob
+  def perform
+    puts 'Test!'
+  end
+end
+
 describe Crono::PerformerProxy do
   it 'should add job to schedule' do
     expect(Crono.scheduler).to receive(:add_job).with(kind_of(Crono::Job))

@@ -1,0 +1,50 @@
+<header>
+  <h4>Running Jobs</h4>
+</header>
+
+<div class="responsive-overflow">
+  <table id="job_list">
+    <tr>
+      <th>Job</th>
+      <th>Last performed at</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+    <% @jobs.each do |job| %>
+      <tr>
+        <td>
+          <%= job.job_id %>
+        </td>
+        <td>
+          <%= job.last_performed_at || 'Never performed yet' %>
+        </td>
+        <td>
+          <% if job.last_performed_at.nil? %>
+            <span class="grey-text darken-3" title="This job has never been performed yet.">
+              ◷ Pending
+            </span>
+          <% elsif job.healthy %>
+            <a href="<%= job_path(job) %>">
+              <span class="green-text darken-3" title="This job was performed successfully.">
+                ✔ Success
+              </span>
+            </a>
+          <% else %>
+            <a href="<%= job_path(job) %>">
+              <span class="red-text" title="There were problems with this job. Follow the link to check the log.">
+                ⚠ Error
+              </span>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if job.last_performed_at %>
+            <a href="<%= job_path(job) %>" class="right">
+              Log ›
+            </a>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

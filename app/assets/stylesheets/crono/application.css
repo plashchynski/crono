@@ -1,0 +1,26 @@
+nav {
+  position: relative;
+  z-index: 2;
+}
+nav .brand-logo {
+  font-size: 1.75em;
+  letter-spacing: -0.05em;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+}
+
+main .page-footer {
+  margin: 0 -20px -20px -20px;
+}
+
+.page-footer > .footer-copyright {
+  padding: 20px;
+}
+
+.responsive-overflow {
+  overflow-x: auto;
+}

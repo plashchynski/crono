@@ -1,5 +1,17 @@
 require 'spec_helper'
 
+class TestJob
+  def perform(args)
+    puts 'Test!'
+  end
+end
+
+class TestFailingJob
+  def perform(args)
+    raise 'Some error'
+  end
+end
+
 describe Crono::Job do
   let(:period) { Crono::Period.new(2.day, at: '15:00') }
   let(:job_args) {[{some: 'data'}]}
@@ -71,7 +83,7 @@ describe Crono::Job do
     it 'should call perform of performer with data' do
       test_job = double()
       expect(TestJob).to receive(:new).and_return(test_job)
-      expect(test_job).to receive(:perform).with({'some' => 'data'})
+      expect(test_job).to receive(:perform).with([{ 'some' => 'data' }])
       thread = job_with_args.perform.join
       expect(thread).to be_stop
     end
