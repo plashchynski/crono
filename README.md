@@ -81,7 +81,7 @@ Rails.app_class.load_tasks
 
 class Test
   def perform
-    Rake::Task['crono:hello'].invoke
+    Rake::Task['crono:hello'].execute
   end
 end
 
