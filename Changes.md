@@ -1,3 +1,11 @@
+X.X.X
+-----------
+- Converted this gem to a proper Rails engine
+- Gets rid of `sinatra` and `haml` dependencies for the Web UI
+- Web UI is now responsive and thus usable on smartphones, etc.
+- Fixed crash with Ruby 3.0
+
+
 1.1.0
 -----------
 - Rails 3 and old Rubies are not supported anymore, sorry rails 3 guys...
