@@ -153,7 +153,6 @@ Usage: crono [options] [start|stop|restart|run]
     -P, --pidfile PATH               Deprecated! use --piddir with --process_name; Path to pidfile (Default: )
     -D, --piddir PATH                Path to piddir (Default: tmp/pids)
     -N, --process_name NAME          Name of the process (Default: crono)
-    -d, --[no-]daemonize             Deprecated! Instead use crono [start|stop|restart] without this option; Daemonize process (Default: false)
     -m, --monitor                    Start monitor process for a deamon (Default false)
     -e, --environment ENV            Application environment (Default: development)
 ```

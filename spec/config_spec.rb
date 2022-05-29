@@ -11,7 +11,6 @@ describe Crono::Config do
       expect(@config.piddir).to be Crono::Config::PIDDIR
       expect(@config.process_name).to be Crono::Config::PROCESS_NAME
       expect(@config.daemonize).to be false
-      expect(@config.deprecated_daemonize).to be false
       expect(@config.monitor).to be false
       expect(@config.environment).to be_eql ENV['RAILS_ENV']
     end
@@ -24,12 +23,6 @@ describe Crono::Config do
           before { config.daemonize = false }
 
           specify { expect(pidfile).to be_nil }
-        end
-
-        context "deprecated_daemonize is true" do
-          before { config.deprecated_daemonize = true }
-
-          specify { expect(pidfile).to eq Crono::Config::PIDFILE }
         end
       end
 

@@ -8,3 +8,4 @@
 /tmp/
 log/*.log
 .byebug_history
+spec/internal

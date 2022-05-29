@@ -8,7 +8,7 @@ module Crono
     PROCESS_NAME = 'crono'
 
     attr_accessor :cronotab, :logfile, :pidfile, :piddir, :process_name,
-                  :monitor, :daemonize, :deprecated_daemonize, :environment
+                  :monitor, :daemonize, :environment
 
     def initialize
       self.cronotab = CRONOTAB
@@ -16,7 +16,6 @@ module Crono
       self.piddir = PIDDIR
       self.process_name = PROCESS_NAME
       self.daemonize = false
-      self.deprecated_daemonize = false
       self.monitor = false
       self.environment = ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'development'
     end
@@ -28,7 +27,7 @@ module Crono
     end
 
     def pidfile
-      @pidfile || (deprecated_daemonize ? PIDFILE : nil)
+      @pidfile
     end
   end
 end

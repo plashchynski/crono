@@ -3,6 +3,7 @@ module Crono
 end
 
 require 'rails'
+require 'sprockets/railtie'
 require 'active_support/all'
 require 'crono/version'
 require 'crono/engine'

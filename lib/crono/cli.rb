@@ -50,23 +50,9 @@ module Crono
     def setup_log
       if config.daemonize
         self.logfile = config.logfile
-      elsif config.deprecated_daemonize
-        self.logfile = config.logfile
-        deprecated_daemonize
       else
         self.logfile = STDOUT
       end
-    end
-
-    def deprecated_daemonize
-      ::Process.daemon(true, true)
-
-      [$stdout, $stderr].each do |io|
-        File.open(config.logfile, 'ab') { |f| io.reopen(f) }
-        io.sync = true
-      end
-
-      $stdin.reopen('/dev/null')
     end
 
     def write_pid
@@ -148,10 +134,6 @@ module Crono
 
         opts.on("-N", "--process_name NAME", "Name of the process (Default: #{config.process_name})") do |process_name|
           config.process_name = process_name
-        end
-
-        opts.on("-d", "--[no-]daemonize", "Deprecated! Instead use crono [start|stop|restart] without this option; Daemonize process (Default: #{config.daemonize})") do |daemonize|
-          config.deprecated_daemonize = daemonize
         end
 
         opts.on("-m", "--monitor", "Start monitor process for a deamon (Default #{config.monitor})") do
