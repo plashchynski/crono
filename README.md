@@ -11,12 +11,6 @@ Currently, there is no such thing as Ruby Cron for Rails. Well, there's [Wheneve
 ![Web UI](https://github.com/plashchynski/crono/raw/master/examples/crono_web_ui.png)
 
 
-## Requirements
-
-Tested with latest MRI Ruby 2.2+, 2.3+, Rails 4.\*, Rails 5.\*, and Rails 6.\*.
-Other versions are untested but might work fine.
-
-
 ## Installation
 
 Add the following line to your application's Gemfile:
