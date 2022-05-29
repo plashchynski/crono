@@ -4,10 +4,6 @@ Job scheduler for Rails
 
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails.
 
-## Deprecated
-
-Unfortunately, I don't have time to support this project.
-
 ## The Purpose
 
 Currently, there is no such thing as Ruby Cron for Rails. Well, there's [Whenever](https://github.com/javan/whenever) but it works on top of Unix Cron, so you can't manage it from Ruby. Crono is pure Ruby. It doesn't use Unix Cron and other platform-dependent things. So you can use it on all platforms supported by Ruby. It persists job states to your database using Active Record. You have full control of jobs performing process. It's Ruby, so you can understand and modify it to fit your needs.
@@ -198,12 +194,7 @@ Use the `capistrano-crono` gem ([github](https://github.com/plashchynski/capistr
 
 ## Support
 
-Feel free to create [issues](https://github.com/plashchynski/crono/issues)
-
-
-## Known Issues
-
-* Is not compatible with the `protected_attributes` gem. See: [https://github.com/plashchynski/crono/issues/43](https://github.com/plashchynski/crono/issues/43)
+Feel free to create an [issues](https://github.com/plashchynski/crono/issues)
 
 
 ## License
