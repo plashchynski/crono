@@ -83,8 +83,8 @@ require 'rake'
 Rails.app_class.load_tasks
 
 class Test
-  def perform(options)
-    Rake::Task['crono:hello'].invoke
+  def perform
+    Rake::Task['crono:hello'].execute
   end
 end
 
