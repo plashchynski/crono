@@ -1,32 +1,19 @@
-require 'bundler/setup'
-Bundler.setup
+require 'bundler'
 
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+Bundler.require :default, :development
 
-require 'timecop'
-require 'byebug'
-require 'crono'
-require 'generators/crono/install/templates/migrations/create_crono_jobs.rb'
+# If you're using all parts of Rails:
+Combustion.initialize! :all
+# Or, load just what you need:
+# Combustion.initialize! :active_record, :action_controller
 
-# setting default time zone
-# In Rails project, Time.zone_default equals "UTC"
-Time.zone_default = Time.find_zone("UTC")
+require 'rspec/rails'
+# If you're using Capybara:
+# require 'capybara/rails'
 
-ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: 'file::memory:?cache=shared'
-)
-
-ActiveRecord::Base.logger = Logger.new(STDOUT)
-CreateCronoJobs.up
-
-class TestJob
-  def perform
-  end
-end
-
-class TestFailingJob
-  def perform
-    fail 'Some error'
+RSpec.configure do |config|
+  config.use_transactional_fixtures = true
+  config.mock_with :rspec do |mocks|
+    mocks.allow_message_expectations_on_nil = true
   end
 end

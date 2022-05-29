@@ -1,0 +1,16 @@
+<header class="blue-grey lighten-4 grey-text text-darken-4">
+  <a href="<%= root_url %>">
+    ‹ Back to Home
+  </a>
+  <h4>Last log of <i><%= @job.job_id %></i>:</h4>
+</header>
+<% if @job.healthy == false %>
+  <div class="row red-text">
+    <div class="s12 center-align">
+      ⚠
+      An error occurs during the last execution of this job.
+      Check the log below for details.
+    </div>
+  </div>
+<% end %>
+<pre class="responsive-overflow"><%= @job.log %></pre>

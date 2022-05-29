@@ -1,4 +1,4 @@
-Crono — Job scheduler for Rails
+Job scheduler for Rails
 ------------------------
 [![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
 [![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
@@ -7,6 +7,9 @@ Crono — Job scheduler for Rails
 
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails.
 
+## Deprecated
+
+Unfortunately, I don't have time to support this project.
 
 ## The Purpose
 
@@ -17,7 +20,7 @@ Currently, there is no such thing as Ruby Cron for Rails. Well, there's [Wheneve
 
 ## Requirements
 
-Tested with latest MRI Ruby 2.2+, 2.3+, Rails 4.\*, and Rails 5.\*.
+Tested with latest MRI Ruby 2.2+, 2.3+, Rails 4.\*, Rails 5.\*, and Rails 6.\*.
 Other versions are untested but might work fine.
 
 
@@ -53,7 +56,7 @@ Here's an example of a job:
 ```ruby
 # app/jobs/test_job.rb
 class TestJob < ActiveJob::Base
-  def perform
+  def perform(options)
     # put you scheduled code here
     # Comments.deleted.clean_up...
   end
@@ -171,19 +174,13 @@ There are "start", "stop", and "restart" commands.
 
 ## Web UI
 
-Crono comes with a Sinatra application that can display the current state of Crono jobs.  
-Add `sinatra` and `haml` to your Gemfile  
-
-```ruby
-gem 'haml'
-gem 'sinatra', require: nil
-```
+Crono can display the current state of Crono jobs.  
 
 Add the following to your `config/routes.rb`:
 
 ```ruby
 Rails.application.routes.draw do
-    mount Crono::Web, at: '/crono'
+    mount Crono::Engine, at: '/crono'
     ...
 ```
 
