@@ -1,4 +1,4 @@
-:no_entry: [DEPRECATED] Crono — Job scheduler for Rails
+Job scheduler for Rails
 ------------------------
 [![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
 [![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
