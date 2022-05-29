@@ -76,7 +76,11 @@ module Crono
     end
 
     def perform_job
-      performer.new.perform JSON.parse(job_args)
+      if job_args
+        performer.new.perform(JSON.parse(job_args))
+      else
+        performer.new.perform
+      end
     rescue StandardError => e
       handle_job_fail(e)
     else

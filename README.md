@@ -40,11 +40,63 @@ Now you are ready to move forward to create a job and schedule it.
 
 ## Usage
 
-#### Create Job
+### The basic usage
 
-Crono can use Active Job jobs from `app/jobs/`. The only requirement is that the `perform` method should take no arguments.
+You can specigy a simple job by editing ```config/cronotab.rb```:
 
-Here's an example of a job:
+```ruby
+# config/cronotab.rb
+class TestJob
+  def perform
+    puts 'Test!'
+  end
+end
+
+Crono.perform(TestJob).every 5.seconds
+```
+
+Then, run a crono process:
+
+```bundle exec crono -e development```
+
+### Job Schedule
+
+Schedule list is defined in the file `config/cronotab.rb`, that created using `rake crono:install`. The semantic is pretty straightforward:
+
+```ruby
+# config/cronotab.rb
+Crono.perform(TestJob).every 2.days, at: {hour: 15, min: 30}
+Crono.perform(TestJob).every 1.week, on: :monday, at: "15:30"
+```
+
+You can schedule one job a few times if you want the job to be performed a few times a day or a week:
+
+```ruby
+Crono.perform(TestJob).every 1.week, on: :monday
+Crono.perform(TestJob).every 1.week, on: :thursday
+```
+
+The `at` can be a Hash:
+
+```ruby
+Crono.perform(TestJob).every 1.day, at: {hour: 12, min: 15}
+```
+
+You can schedule a job with arguments, which can contain objects that can be serialized using JSON.generate
+
+```ruby
+Crono.perform(TestJob, 'some', 'args').every 1.day, at: {hour: 12, min: 15}
+```
+
+You can set some options that not passed to the job but affect how the job will be treated by Crono. For example, you can set to truncate job logs (which stored in the database) to a certain number of records:
+
+```ruby
+Crono.perform(TestJob).with_options(truncate_log: 100).every 1.week, on: :monday
+```
+
+### Job classes
+
+Crono can use Active Job jobs from `app/jobs/`. Here's an example of a job:
 
 ```ruby
 # app/jobs/test_job.rb
@@ -66,6 +118,8 @@ class TestJob # This is not an Active Job job, but pretty legal Crono job.
   end
 end
 ```
+
+### Run rake tasks
 
 Here's an example of a Rake Task within a job:
 
@@ -96,49 +150,13 @@ end
 
 _Please note that crono uses threads, so your code should be thread-safe_
 
-#### Job Schedule
+### Run crono
 
-Schedule list is defined in the file `config/cronotab.rb`, that created using `crono:install`. The semantic is pretty straightforward:
+Run crono in your Rails project root directory:
 
-```ruby
-# config/cronotab.rb
-Crono.perform(TestJob).every 2.days, at: {hour: 15, min: 30}
-Crono.perform(TestJob).every 1.week, on: :monday, at: "15:30"
-```
+    bundle exec crono -e development
 
-You can schedule one job a few times if you want the job to be performed a few times a day or a week:
-
-```ruby
-Crono.perform(TestJob).every 1.week, on: :monday
-Crono.perform(TestJob).every 1.week, on: :thursday
-```
-
-The `at` can be a Hash:
-
-```ruby
-Crono.perform(TestJob).every 1.day, at: {hour: 12, min: 15}
-```
-
-You can schedule a job with arguments, which can contain objects that can be
-serialized using JSON.generate
-
-```ruby
-Crono.perform(TestJob, 'some', 'args').every 1.day, at: {hour: 12, min: 15}
-```
-
-You can set some options that not passed to the job but affect how the job will be treated by Crono. For example, you can set to truncate job logs (which stored in the database) to a certain number of records:
-
-```ruby
-Crono.perform(TestJob).with_options(truncate_log: 100).every 1.week, on: :monday
-```
-
-#### Run
-
-To run Crono, in your Rails project root directory:
-
-    bundle exec crono RAILS_ENV=development
-
-crono usage:
+Usage:
 ```
 Usage: crono [options] [start|stop|restart|run]
     -C, --cronotab PATH              Path to cronotab file (Default: config/cronotab.rb)
