@@ -1,4 +1,4 @@
-Crono — Job scheduler for Rails
+Job scheduler for Rails
 ------------------------
 [![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
 [![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
@@ -7,6 +7,9 @@ Crono — Job scheduler for Rails
 
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails.
 
+## Deprecated
+
+Unfortunately, I don't have time to support this project.
 
 ## The Purpose
 

@@ -78,7 +78,8 @@ module Crono
     end
 
     def time_atts
-      { hour: @at_hour, min: @at_min }.compact
+      atts = { hour: @at_hour, min: @at_min }
+      atts.respond_to?(:compact) ? atts.compact : atts.select { |_, value| !value.nil? }
     end
   end
 end
