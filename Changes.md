@@ -1,4 +1,4 @@
-X.X.X
+2.0.0
 -----------
 - Converted this gem to a proper Rails engine
 - Gets rid of `sinatra` and `haml` dependencies for the Web UI
