@@ -12,7 +12,7 @@ module Crono
     def initialize(performer, period, job_args, job_options = nil)
       self.execution_interval = 0.minutes
       self.performer, self.period = performer, period
-      self.job_args = JSON.generate(job_args)
+      self.job_args = JSON.generate(job_args) if job_args.present?
       self.job_log = StringIO.new
       self.job_logger = Logger.new(job_log)
       self.job_options = job_options || {}
