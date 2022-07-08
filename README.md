@@ -31,6 +31,10 @@ Run the migration:
 
 Now you are ready to move forward to create a job and schedule it.
 
+### Compatibility
+
+* **Crono v1.1.2** and older are compatible with Ruby 2.7.x and older
+* **Crono v2.0.0** and newer are compatible with Ruby 2.7.x and _newer_
 
 ## Usage
 
