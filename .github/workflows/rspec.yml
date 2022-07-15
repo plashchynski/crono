@@ -1,0 +1,36 @@
+name: "RSpec"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ main ]
+  schedule:
+    - cron: '00 12 * * *' # daily at 12:00
+
+jobs:
+  specs:
+    name: specs
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        ruby: ['2.7', '3.0', '3.1'] # Due to https://github.com/actions/runner/issues/849, we have to use quotes
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          cache-version: 1 # change this value when you have to empty the cache manually
+
+      - name: Run specs
+        run: |
+          bundle exec rspec spec/
