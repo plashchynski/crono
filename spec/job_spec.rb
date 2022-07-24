@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 class TestJob
-  def perform(args)
+  def perform(*args)
     puts 'Test!'
   end
 end
 
 class TestFailingJob
-  def perform(args)
+  def perform(*args)
     raise 'Some error'
   end
 end
