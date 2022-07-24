@@ -11,7 +11,7 @@ describe Crono::CLI do
       expect(cli).to receive(:start_working_loop)
       expect(cli).to receive(:parse_options)
       expect(cli).to receive(:parse_command)
-      expect(cli).to receive(:write_pid)
+      expect(cli).not_to receive(:write_pid)
       expect(Crono::Cronotab).to receive(:process)
       cli.run
     end
@@ -25,7 +25,8 @@ describe Crono::CLI do
         expect(cli).to receive(:start_working_loop_in_daemon)
         expect(cli).to receive(:parse_options)
         expect(cli).to receive(:parse_command)
-        expect(cli).not_to receive(:write_pid)
+        expect(cli).to receive(:setup_log)
+        expect(cli).to receive(:write_pid)
         expect(Crono::Cronotab).to receive(:process)
         cli.run
       end

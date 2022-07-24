@@ -24,7 +24,7 @@ module Crono
 
       setup_log
 
-      write_pid unless config.daemonize
+      write_pid if config.daemonize
       load_rails
       Cronotab.process(File.expand_path(config.cronotab))
       print_banner
