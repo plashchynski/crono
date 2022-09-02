@@ -12,12 +12,19 @@ class TestFailingJob
   end
 end
 
+class TestNoArgsJob
+  def perform
+    puts 'Test!'
+  end
+end
+
 describe Crono::Job do
   let(:period) { Crono::Period.new(2.day, at: '15:00') }
   let(:job_args) {[{some: 'data'}]}
   let(:job) { Crono::Job.new(TestJob, period, []) }
   let(:job_with_args) { Crono::Job.new(TestJob, period, job_args) }
   let(:failing_job) { Crono::Job.new(TestFailingJob, period, []) }
+  let(:not_args_job) { Crono::Job.new(TestJob, period) }
 
   it 'should contain performer and period' do
     expect(job.performer).to be TestJob
@@ -70,6 +77,10 @@ describe Crono::Job do
       test_preform_job_twice
     end
 
+    it 'should execute twice without args' do
+      test_preform_job_twice not_args_job
+    end
+
     it 'should execute twice without initialize execution_interval' do
       test_preform_job_twice
     end
@@ -88,10 +99,10 @@ describe Crono::Job do
       expect(thread).to be_stop
     end
 
-    def test_preform_job_twice
-      expect(job).to receive(:perform_job).twice
-      job.perform.join
-      thread = job.perform.join
+    def test_preform_job_twice(jon_instance = job)
+      expect(jon_instance).to receive(:perform_job).twice
+      jon_instance.perform.join
+      thread = jon_instance.perform.join
       expect(thread).to be_stop
     end
   end
