@@ -9,7 +9,7 @@ module Crono
     attr_accessor :performer, :period, :job_args, :last_performed_at, :job_options,
                   :next_performed_at, :job_log, :job_logger, :healthy, :execution_interval
 
-    def initialize(performer, period, job_args, job_options = nil)
+    def initialize(performer, period, job_args = nil, job_options = nil)
       self.execution_interval = 0.minutes
       self.performer, self.period = performer, period
       self.job_args = JSON.generate(job_args) if job_args.present?
