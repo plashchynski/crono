@@ -1,3 +1,7 @@
+2.0.1
+-----------
+- Fix a job argument error
+
 2.0.0
 -----------
 - Converted this gem to a proper Rails engine
