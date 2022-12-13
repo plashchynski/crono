@@ -92,7 +92,7 @@ GEM
       tilt
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    loofah (2.18.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -118,13 +118,13 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.7-arm64-darwin)
+    nokogiri (1.13.10-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.7-x86_64-darwin)
+    nokogiri (1.13.10-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.7-x86_64-linux)
+    nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.4)
     rack-protection (2.2.0)
       rack
