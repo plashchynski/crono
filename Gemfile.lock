@@ -118,13 +118,13 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.7-arm64-darwin)
+    nokogiri (1.14.0-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.7-x86_64-darwin)
+    nokogiri (1.14.0-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.7-x86_64-linux)
+    nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
-    racc (1.6.0)
+    racc (1.6.2)
     rack (2.2.4)
     rack-protection (2.2.0)
       rack
@@ -208,6 +208,7 @@ GEM
 PLATFORMS
   arm64-darwin-21
   x86_64-darwin-21
+  x86_64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
@@ -226,4 +227,4 @@ DEPENDENCIES
   timecop (>= 0.7)
 
 BUNDLED WITH
-   2.3.14
+   2.4.4
