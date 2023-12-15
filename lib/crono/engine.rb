@@ -3,7 +3,11 @@ module Crono
     isolate_namespace Crono
 
     initializer 'crono.assets.precompile' do |app|
-      app.config.assets.precompile += %w( crono/application.css crono/materialize.min.css )
+      if app.config.respond_to?(:assets)
+        app.config.assets.precompile += %w( crono/application.css crono/materialize.min.css )
+      else
+        fail "Crono requires either Propshaft or Sprockets to be installed."
+      end
     end
 
     config.generators do |g|
