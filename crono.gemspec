@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'rails', '>= 5.2.8'
-  s.add_dependency 'sprockets-rails'
   s.add_development_dependency 'rake', '>= 13.0.1'
   s.add_development_dependency 'bundler', '>= 2'
   s.add_development_dependency 'rspec', '>= 3.10'
