@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        ruby: ['2.7', '3.0', '3.1'] # Due to https://github.com/actions/runner/issues/849, we have to use quotes
+        ruby: ['2.7', '3.0', '3.1', '3.2'] # Due to https://github.com/actions/runner/issues/849, we have to use quotes
 
     runs-on: ${{ matrix.os }}
 
