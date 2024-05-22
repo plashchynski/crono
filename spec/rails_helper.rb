@@ -23,7 +23,7 @@ ActiveRecord::Base.logger = Logger.new($stdout)
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: ':memory'
+  database: ':memory:'
 )
 ActiveRecord::Schema.define do
   require_relative '../lib/generators/crono/install/templates/migrations/create_crono_jobs.rb'
