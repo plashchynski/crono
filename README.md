@@ -40,7 +40,7 @@ Now you are ready to move forward to create a job and schedule it.
 
 ### The basic usage
 
-You can specigy a simple job by editing ```config/cronotab.rb```:
+You can specify a simple job by editing ```config/cronotab.rb```:
 
 ```ruby
 # config/cronotab.rb
