@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    crono (2.0.1)
+    crono (2.1.0)
       rails (>= 5.2.8)
 
 GEM
@@ -234,6 +234,7 @@ GEM
 PLATFORMS
   arm64-darwin-21
   arm64-darwin-23
+  arm64-darwin-24
   x86_64-darwin-21
   x86_64-darwin-22
   x86_64-linux

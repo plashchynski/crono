@@ -1,3 +1,7 @@
+2.1.0
+-----------
+- Add Rails 7.2 support (thanks to @janko)
+
 2.0.1
 -----------
 - Fix a job argument error

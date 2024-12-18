@@ -166,7 +166,7 @@ Usage: crono [options] [start|stop|restart|run]
     -e, --environment ENV            Application environment (Default: development)
 ```
 
-#### Run as a daemon
+### Run as a daemon
 
 To run Crono as a daemon, please add to your Gemfile:
 
@@ -194,7 +194,7 @@ Rails.application.routes.draw do
 
 Access management and other questions described in the [wiki](https://github.com/plashchynski/crono/wiki/Web-UI).
 
-#### Known issues
+## Known issues
 
 For Rails 5, in case of the errors:
 ```
@@ -206,6 +206,20 @@ See the related issue [#52](https://github.com/plashchynski/crono/issues/52)
 ## Capistrano
 
 Use the `capistrano-crono` gem ([github](https://github.com/plashchynski/capistrano-crono/)).
+
+## Development
+
+### Running tests
+
+To run the tests, you need to have a database. You can use the default SQLite database:
+
+    bundle exec rspec
+
+### Publishing
+
+To publish a new version, you need to update the version number in `lib/crono/version.rb` and then run:
+
+    bundle exec rake release
 
 
 ## Support

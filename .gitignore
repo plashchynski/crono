@@ -9,3 +9,6 @@
 log/*.log
 .byebug_history
 spec/internal
+
+# macOS stuff
+.DS_Store
